@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Game</title>
+</head>
+<body>
+    <div id="message"></div>
+    <div id="message2"></div>
+    <input type="text" id="Mystring">
+    <input type="button" value="Guess" onclick="guess()">
+    
+    <script>
+        let msg = document.getElementById('message');
+        let msg2 = document.getElementById('message2')
+        let arr = ['javascript', 'typescript', 'programming', 'computer', 'Algorithms']
+        let word;
+        
+        //When window open, load the word
+        window.onload = secretWord;
+        function secretWord(){
+            //random word from the array
+            let randomWord = arr[Math.floor(Math.random() * arr.length)]
+            word = randomWord;
+            randomWord = randomWord.toLowerCase();
+
+            //scramble word
+            let scrambleWord = "";
+            let wordLength = randomWord.length
+
+            for(let x = 0; x < wordLength; x++){
+                let i = Math.floor(Math.random() * randomWord.length);
+                scrambleWord += randomWord[i];
+                randomWord = randomWord.substr(0,i) + randomWord.substr(i+1)
+            }
+
+            msg.innerHTML = scrambleWord;
+        }
+
+        function guess(){
+            let guessed = document.getElementById('Mystring').value;
+            guessed === word ? msg2.innerHTML = 'correct' : msg2.innerHTML = 'try again'            
+            
+        }
+        secretWord()
+    
+    </script>
+</body>
+</html>
