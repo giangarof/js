@@ -8,13 +8,14 @@
 </head>
 <body>
     <div id="message"></div>
-    <div id="message2"></div>
     <input type="text" id="Mystring">
-    <input type="button" value="Guess" onclick="guess()">
+    <input type="button" id="btn" value="Guess" onclick="guess()">
+    <div id="message2"></div>
     
     <script>
         let msg = document.getElementById('message');
-        let msg2 = document.getElementById('message2')
+        let msg2 = document.getElementById('message2');
+        let btn = document.getElementById('btn')
         let arr = ['javascript', 'typescript', 'programming', 'computer', 'Algorithms']
         let word;
         
@@ -38,13 +39,17 @@
 
             msg.innerHTML = scrambleWord;
         }
-
+        
         function guess(){
             let guessed = document.getElementById('Mystring').value;
-            guessed === word ? msg2.innerHTML = 'correct' : msg2.innerHTML = 'try again'            
-            
+            // guessed === word ? msg2.innerHTML = 'correct' : msg2.innerHTML = 'try again'            
+            if(guessed === word){
+                msg2.innerHTML = 'Correct';
+                secretWord()
+            } else{
+                msg2.innerHTML = 'Try again'
+            }
         }
-        secretWord()
     
     </script>
 </body>
