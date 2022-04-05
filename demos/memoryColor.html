@@ -24,6 +24,14 @@
         font-weight: 700;
         letter-spacing: 1px;
     }
+
+    .box{
+        width: 100px;
+        height: 80px;
+        margin: 10px;
+        display: inline-block;
+        border: 2px solid black;
+    }
 </style>
 <body>
     <div id="msg">Color Memory Game</div>
@@ -43,11 +51,18 @@
         let loop = 0; 
         let output = document.getElementById('output');
         let msg = document.getElementById('msg');
+        let guess = document.getElementById('guess');
+        let gamePlay = false;
 
         //start game and set random colors
         function start() {
             let colors = ['yellow', 'blue', 'red', 'green'];
             let html = "";
+            gamePlay = true;
+            sequence = [];
+            guessed = [];
+            guess.innerHTML = "";
+            msg.innerHTML = 'Game started! Guess the correct order!'
             //build btns colors
             for(let x = 0; x < 4; x++){
                 html += `<div class="${colors[x]}"
@@ -69,13 +84,30 @@
 
         //user guessed colors order
         function guessColor(){
-            let userGuess = event.target.className;
-            sequence.push(userGuess);
-            if(guessed.length === sequence.length){
-                if(sequence.toString() === guessed.toString()){
-                    msg.innerText = `Correct!`
-                } else {
-                    msg.innerText = `Wrong, Correct order is ${sequence}`
+            if(gamePlay){
+                let userGuess = event.target.className;
+                //create div to show the order guessed by the user
+                let div = document.createElement('div');
+                div.className = 'box';
+                div.style.backgroundColor = userGuess
+                div.dataset.v = guessed.length;
+                div.onclick = function (){
+                    if(gamePlay){
+                        let remove = event.target.getAttribute('data-v');
+                        guessed.splice(remove, 1);
+                        event.target.parentNode.removeChild(event.target)
+                        console.log(remove)
+                    }
+                }
+                guess.appendChild(div);
+                sequence.push(userGuess);
+                if(guessed.length === sequence.length){
+                    gamePlay = false;
+                    if(sequence.toString() === guessed.toString()){
+                        msg.innerText = `Correct!`
+                    } else {
+                        msg.innerText = `Wrong, Correct order is ${sequence}`
+                    }
                 }
             }
         }
