@@ -14,22 +14,50 @@
         display: block;
         border: 2px solid black;
     }
+
+    #clickBtn div{
+        width: 100px;
+        display: inline-block;
+        height: 80px;
+        text-align: center;
+        border: 1px solid black;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
 </style>
 <body>
     <div id="msg">Color Memory Game</div>
     <input type="button" value="start" onclick="start()">
     <div id="output"></div>
+    <div id="clickBtn">
+
+    </div>
+    <div id="guess">
+
+    </div>
     <script>
 
         let sequence = []; //sequence of the colors
         let guessed = []; //order player guessed
         let timer; // duration of each color
         let loop = 0; 
-        let output = document.getElementById('output')
+        let output = document.getElementById('output');
+        let msg = document.getElementById('msg');
 
         //start game and set random colors
         function start() {
             let colors = ['yellow', 'blue', 'red', 'green'];
+            let html = "";
+            //build btns colors
+            for(let x = 0; x < 4; x++){
+                html += `<div class="${colors[x]}"
+                            style="background-color: ${colors[x]}" 
+                            onclick="guessColor()"> 
+                            ${colors[x]} 
+                        </div>`
+            }
+            document.getElementById('clickBtn').innerHTML = html
+
             //set random colors from the array
             for(let x = 0; x < 4; x++){
                 let random = colors[Math.floor(Math.random() * colors.length)]
@@ -37,6 +65,19 @@
             }
             loop = 0;
             timer = setTimeout(initial, 500);
+        }
+
+        //user guessed colors order
+        function guessColor(){
+            let userGuess = event.target.className;
+            sequence.push(userGuess);
+            if(guessed.length === sequence.length){
+                if(sequence.toString() === guessed.toString()){
+                    msg.innerText = `Correct!`
+                } else {
+                    msg.innerText = `Wrong, Correct order is ${sequence}`
+                }
+            }
         }
 
         function initial (){
