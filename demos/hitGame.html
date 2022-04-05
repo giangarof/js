@@ -7,12 +7,107 @@
     <title>Hit Game</title>
 </head>
 <style>
-    
+
+    #gameboard{
+        height: 500px;
+        width: 600px;
+        margin: 0 auto;
+        border:  1px solid black;
+    }
+
+    .office{
+        float: left;
+        width: 120px;
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #ddd;
+        margin: 10px 30px;
+    }
+
+    .desk{
+        width: 100%;
+        height: 100%;
+        bottom: 0px;
+        position: absolute;
+        background-color: brown;
+        z-index: 2;
+    }
+
+    .computer{
+        background: url('./img1.jpeg') bottom center no-repeat;
+        background-size: 100% 100% ;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 80%;
+    }
+
+    .popup{
+        top: 0;
+    }
+
 </style>
 <body>
-    
-    <script>
+    <div>Score: <span class="score">0</span></div>
+    <input type="button" value="Start Game" onclick="start()">
+    <div id="gameboard">
 
+    </div>
+    <script>
+        window.onload = build;
+        let board = document.getElementById('gameboard');
+        let office = 6;
+        let cpu;
+        let timer;
+        let random;
+        let score = 0;
+        let off = true;
+
+        function build(){
+            let html = '<h1> Hit It </h1>'
+            for(let x = 0; x < 6; x++){
+                html += `<div class="office">
+                            <div class="desk">
+                                <div class="computer"></div>
+                            </div>
+                        </div>`
+            }
+            board.innerHTML = html;
+            cpu = document.querySelectorAll('.computer')
+            for(let x = 0; x < cpu.length; x++){
+                cpu[x].addEventListener('click', hitIt, false);
+            }
+
+        }
+
+        function popup(){
+            off = true;
+            random = cpu[Math.floor(Math.random() * cpu.length)]
+            random.classList.add('popup');
+            let randomTime = (Math.floor(Math.random()*10)*100)+500;
+            timer = setTimeout(hideCpu, randomTime);
+        }
+
+        function hideCpu(){
+            random.classList.remove('popup');
+            popup();
+
+        }
+
+        function hitIt(){
+            event.target.classList.remove('popup');
+            if(off){
+                off = false;
+                score++;
+                document.querySelector('.score').innerHTML = score;
+            }
+            popup()
+        }
+
+        function start(){
+            popup()
+        }
     </script>
 </body>
 </html>
