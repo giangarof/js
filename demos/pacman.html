@@ -40,6 +40,32 @@
         border-radius: 10px;
     }
 
+    .blinky{
+        background-color: red;
+        border: 0px;
+    }
+
+    .pinky{
+        background-color: pink;
+        border: 0px;
+    }
+
+    .inky{
+        background-color: cyan;
+        border: 0px;
+    }
+
+    .clyde{
+        background-color: orange;
+        border: 0px;
+    }
+
+    .scared-ghost{
+        background-color: aquamarine;
+        border: 0px;
+    }
+
+
 
 
 
@@ -53,8 +79,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.querySelector('.grid');
-            const score = document.getElementById('score');
+            const scoreDisplay = document.getElementById('score');
             const width = 28;
+            let score = 0;
             const layout = [
                 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                 1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -148,13 +175,115 @@
 
                 squares[pacmanIndex].classList.add('pac-man')
 
-                //pacDotEaten()
-                //powerPelletEaten()
-                //gameOver()
-                //win()
+                pacDotEaten()
+                powerPelletEaten()
+                gameOver()
+                win()
             }
 
             document.addEventListener('keyup', movePacman)
+
+            function pacDotEaten(){
+                if(squares[pacmanIndex].classList.contains('pac-dot')){
+                    score++
+                    scoreDisplay.innerHTML = score;
+                    squares[pacmanIndex].classList.remove('pac-dot')
+                }
+            }
+
+            //power-pellet
+            function powerPelletEaten(){
+                if(squares[pacmanIndex].classList.contains('power-pellet')){
+                    score += 10
+                    ghosts.forEach(ghost => ghost.isScared = true)
+                    setTimeout(unscareGhost, 10000)
+                    squares[pacmanIndex].classList.remove('power-pellet');
+                }
+            }
+
+            //stop flashing
+            function unscareGhost(){
+                ghosts.forEach(ghost => ghost.isScared = false);
+            }
+
+            //Ghost Template
+            class Ghost {
+                constructor(className, startIndex, speed){
+                    this.className = className
+                    this.startIndex = startIndex
+                    this.speed = speed
+                    this.currentIndex = startIndex
+                    this.timerId = NaN
+                    this.isScared = false
+                }
+            }
+
+            ghosts = [
+                new Ghost('blinky', 348, 110),
+                new Ghost('pinky', 376, 100),
+                new Ghost('inky', 351, 200),
+                new Ghost('clyde', 379, 90)
+            ]
+
+            //draw ghost into the grid
+            ghosts.forEach(ghost => {
+                squares[ghost.currentIndex].classList.add(ghost.className)
+                squares[ghost.currentIndex].classList.add('ghost')
+            })
+
+            //Ghosts movement randomly
+            ghosts.forEach(ghost => moveGhost(ghost))
+
+            //move the Ghosts
+            function moveGhost(ghost){
+                const directions = [-1, +1, width, -width]
+                let direction = directions[Math.floor(Math.random() * directions.length)]
+                
+                ghost.timerId = setInterval(function() {
+                    if(!squares[ghost.currentIndex + direction].classList.contains('wall')
+                        && !squares[ghost.currentIndex + direction].classList.contains('ghost')){
+                            //remove all ghost class
+                            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+                            //change currentIndex to the new safe square
+                            ghost.currentIndex += direction
+                            //redraw the ghost in the new safe space
+                            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+                        //find a new direction
+                        } else direction = directions[Math.floor(Math.random() * directions.length)]
+                    //if ghost is scared
+                    if(ghost.isScared){
+                        squares[ghost.currentIndex].classList.add('scared-ghost')
+                    }
+                    //if ghost is scared pacman can eat it
+                    if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pacman')){
+                        squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+                        ghost.currentIndex= ghost.startIndex
+                        score += 100
+                        squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+                        }
+                        gameOver();
+                    }, ghost.speed)
+            }
+
+            function gameOver(){
+                if(squares[pacmanIndex].classList.contains('ghost')
+                    && !squares[pacmanIndex].classList.contains('scared-ghost')) {
+                        ghosts.forEach(ghost => clearInterval(ghost.timerId))
+                        document.removeEventListener('keyup', movePacman)
+                        // setTimeout(function(){alert('Game Over')
+                        // }, 500)
+                        scoreDisplay.innerHTML = 'Game Over'
+                    }
+            }
+
+            function win(){
+                if(score === 370){
+                    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+                    document.removeEventListener('keyup', movePacman)
+                    scoreDisplay.innerHTML = 'You Won'
+                }
+            }
+            
         })
     </script>
 </body>
