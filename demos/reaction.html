@@ -17,6 +17,7 @@
         background-color: rgb(106, 160, 231);
         letter-spacing: 1px;
         border-radius: 16px;
+        cursor: pointer;
    }
 
    .container{
@@ -49,6 +50,42 @@
         const score = document.querySelector('.score');
         let player = {
             score: 0
+        }
+
+        startGame.addEventListener('click', function(){
+            startGame.style.display='none';
+            //random time
+            let r = Math.random()*2000 + 1000;
+            setTimeout(makeItem, r)
+        })
+
+        function makeItem(){
+            //calculate the area limit
+            let boundary = container.getBoundingClientRect();
+
+            let div= document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.left = Math.random() * boundary.width + 'px';
+            div.style.top = Math.random() * boundary.height + 'px';
+            div.style.width = Math.random() * 5 + 10 + 'px';
+            div.style.height = Math.random() * 5 + 10 + 'px';
+            div.style.borderRadius = '10%';
+            div.style.cursor = 'pointer';
+            div.style.backgroundColor = '#' + Math.random().toString(16).substr(-6);
+            div.style.border = '1px solid black';
+            div.startTime = Date.now();
+
+            div.addEventListener('click', function () {
+                let endTime = Date.now();
+                let diff = (endTime - div.startTime) / 1000;
+                score.innerHTML = `Clicked in ${diff} seconds`;
+                startGame.style.display = 'block';
+                container.removeChild(div)
+            })
+            container.appendChild(div);
+
+
+
         }
 
     </script>
