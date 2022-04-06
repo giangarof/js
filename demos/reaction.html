@@ -7,6 +7,9 @@
     <title>Reaction Game</title>
 </head>
 <style>
+    *{
+        box-sizing: border-box;
+    }
     .btn{
         padding: 15px;
         border: 1px solid black;
@@ -22,7 +25,7 @@
 
    .container{
        width: 100%;
-       height: 100%;
+       height: 500px;
        text-align: center;
        margin: auto;
    }
@@ -62,13 +65,13 @@
         function makeItem(){
             //calculate the area limit
             let boundary = container.getBoundingClientRect();
-
+            console.log(boundary)
             let div= document.createElement('div');
             div.style.position = 'absolute';
             div.style.left = Math.random() * boundary.width + 'px';
             div.style.top = Math.random() * boundary.height + 'px';
-            div.style.width = Math.random() * 5 + 10 + 'px';
-            div.style.height = Math.random() * 5 + 10 + 'px';
+            div.style.width = Math.random() * 8 + 30 + 'px';
+            div.style.height = Math.random() * 8 + 30 + 'px';
             div.style.borderRadius = '10%';
             div.style.cursor = 'pointer';
             div.style.backgroundColor = '#' + Math.random().toString(16).substr(-6);
@@ -79,13 +82,16 @@
                 let endTime = Date.now();
                 let diff = (endTime - div.startTime) / 1000;
                 score.innerHTML = `Clicked in ${diff} seconds`;
-                startGame.style.display = 'block';
+                //startGame.style.display = 'block';
+                clearTimeout(div.timer);
+                makeItem()
                 container.removeChild(div)
             })
+            div.timer = setTimeout(function() {
+                container.removeChild(div);
+                makeItem()
+            }, 1000)
             container.appendChild(div);
-
-
-
         }
 
     </script>
