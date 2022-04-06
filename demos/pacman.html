@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .grid{
+        display: flex;
+        flex-wrap: wrap;
+        height: 560px;
+        width: 560px;
+        border: solid #000;
+    }
+
+    .grid div {
+        width: 20px;
+        height: 20px;
+    }
+
+    .pac-dot{
+        background-color: green;
+        border:  5px solid white;
+        box-sizing: border-box;
+    }
+
+    .wall{
+        background-color: blue;
+    }
+
+    .power-pellet{
+        background-color: green;
+        border-radius: 10px;
+    }
+
+    .pac-man {
+        background-color: yellow;
+        border-radius: 10px;
+    }
+
+
+
+
+</style>
+<body>
+
+    <div class="grid"></div>
+
+    <h3>Score: <span id="score">0</span></h3>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('.grid');
+            const score = document.getElementById('score');
+            const width = 28;
+            const layout = [
+                1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,3,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,3,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
+                1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
+                1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
+                1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
+                4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
+                1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
+                1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
+                1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
+                1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+                1,3,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,1,
+                1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
+                1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
+                1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1,
+                1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
+                1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
+                1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+            ];
+
+            const squares = [];
+
+            //create grid and render it
+            function createBoard(){
+                for(let i = 0; i < layout.length; i++){
+                    const square = document.createElement('div')
+                    grid.appendChild(square);
+                    squares.push(square);
+
+                    //add layout to the board
+                    if(layout[i] === 0){
+                        squares[i].classList.add('pac-dot');
+                    } else if(layout[i] === 1){
+                        squares[i].classList.add('wall');
+                    } else if(layout[i] === 3){
+                        squares[i].classList.add('power-pellet');
+                    }
+                }
+            }
+            createBoard()
+
+            //pacman position 
+            let pacmanIndex = 490;
+            squares[pacmanIndex].classList.add('pac-man');
+
+            //move pacman
+            function movePacman(e){
+                squares[pacmanIndex].classList.remove('pac-man');
+
+                switch(e.keyCode){
+                    case 37:
+                        if(pacmanIndex % width !== 0 && !squares[pacmanIndex - 1].classList.contains('wall')) pacmanIndex -= 1
+                        break
+                    case 38:
+                        if(pacmanIndex - width >0 && !squares[pacmanIndex - width].classList.contains('wall')) pacmanIndex -= width
+                        break
+                    case 39:
+                        if(pacmanIndex % width < width - 1 && !squares[pacmanIndex + 1].classList.contains('wall')) pacmanIndex += 1
+                        break
+                    case 40:
+                        if(pacmanIndex + width < width * width && !squares[pacmanIndex + width].classList.contains('wall')) pacmanIndex += width
+                        break
+                    }
+
+                squares[pacmanIndex].classList.add('pac-man')
+
+                //pacDotEaten()
+                //powerPelletEaten()
+                //gameOver()
+                //win()
+            }
+
+            document.addEventListener('keyup', movePacman)
+        })
+    </script>
+</body>
+</html>
