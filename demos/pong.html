@@ -14,6 +14,7 @@
     body{
         margin: 0;
         background-color: #333;
+        overflow: hidden;
     }
 
     :root{
@@ -86,15 +87,70 @@
     <div class="paddle right" id="computer-paddle"></div>
     
     <script>
+        const initial_velocity = .020
+        const velocity_increase = .00001
         //creating the ball
         class Ball {
             constructor(ballElem){
                 this.ballElem = ballElem
+                this.reset()
             }
+
+            get x(){
+                return parseFloat(getComputedStyle(this.ballElem).getPropertyValue('--x'))
+            }
+
+            set x(value){
+                this.ballElem.style.setProperty('--x', value)
+            }
+
+            get y(){
+                return parseFloat(getComputedStyle(this.ballElem).getPropertyValue('--y'))
+            }
+
+            set y(value){
+                this.ballElem.style.setProperty('--y', value)
+            }
+
+            rect(){
+                return this.ballElem.getBoundingClientRect()
+            }
+
+            reset(){
+                this.x = 50
+                this.y = 50
+                this.direction = { x: 0 }
+                while(
+                    Math.abs(this.direction.x) <= 0.2 ||
+                    Math.abs(this.direction.x) >= 0.9
+                ) {
+                    const heading = randomNumber(0, 2 * Math.PI)
+                    this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+                }
+                this.velocity = initial_velocity;
+            }
+
             update(delta){
-                
+                this.x += this.direction.x * this.velocity * delta
+                this.y += this.direction.y * this.velocity * delta
+                this.velocity += velocity_increase * delta
+                const rect = this.rect();
+
+                if(rect.bottom >= window.innerHeight || rect.top <= 0){
+                    this.direction.y *= -1
+                }
+
+                if(rect.right >= window.innerWidth || rect.left <= 0){
+                    this.direction.x *= -1
+                }
             }
         }
+
+        function randomNumber(min, max){
+            return Math.random() * (max - min) + min
+        }
+
+
 
         const ball = new Ball(document.getElementById('ball'))
 
@@ -105,7 +161,7 @@
             if(lastTime != null){
                 const delta = time - lastTime
                 ball.update(delta)
-                console.log(delta)
+                // console.log(delta)
             }
             //how much time to one frame to another
             lastTime = time
