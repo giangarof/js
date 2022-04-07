@@ -87,6 +87,7 @@
     <div class="paddle right" id="computer-paddle"></div>
     
     <script>
+        //Ball class
         const initial_velocity = .020
         const velocity_increase = .00001
         //creating the ball
@@ -151,9 +152,37 @@
         }
 
 
+        //Paddle class
+        const speed = .02
+        class Paddle {
+            constructor(paddleElem){
+                this.paddleElem = paddleElem
+                this.resetGame()
+            }
+
+            get position(){
+                return parseFloat(getComputedStyle(this.paddleElem).getPropertyValue('--position'))
+            }
+
+            set position(value){
+                this.paddleElem.style.setProperty('--position', value)
+            }
+
+            resetGame(){
+                this.position = 50
+            }
+
+            updatePaddle(delta, ballHeight){
+                this.position += speed * delta * (ballHeight - this.position)
+            }
+
+        }
+
+
 
         const ball = new Ball(document.getElementById('ball'))
-
+        const playerPaddle = new Paddle(document.getElementById('player-paddle'))
+        const computerPaddle = new Paddle(document.getElementById('computer-paddle')) 
         //infinite loop
         let lastTime;
 
@@ -161,13 +190,24 @@
             if(lastTime != null){
                 const delta = time - lastTime
                 ball.update(delta)
+                computerPaddle.updatePaddle(delta, ball.y)
+                if(isLose()){
+
+                }
                 // console.log(delta)
             }
             //how much time to one frame to another
             lastTime = time
             window.requestAnimationFrame(update)
-
         }
+
+        function isLose(){
+            
+        }
+
+        document.addEventListener('mousemove', e => {
+            playerPaddle.position = (e.y / window.innerHeight) * 100
+        })
 
         window.requestAnimationFrame(update)
 
