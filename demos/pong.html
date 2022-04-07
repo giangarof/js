@@ -86,6 +86,34 @@
     <div class="paddle right" id="computer-paddle"></div>
     
     <script>
+        //creating the ball
+        class Ball {
+            constructor(ballElem){
+                this.ballElem = ballElem
+            }
+            update(delta){
+                
+            }
+        }
+
+        const ball = new Ball(document.getElementById('ball'))
+
+        //infinite loop
+        let lastTime;
+
+        function update(time){
+            if(lastTime != null){
+                const delta = time - lastTime
+                ball.update(delta)
+                console.log(delta)
+            }
+            //how much time to one frame to another
+            lastTime = time
+            window.requestAnimationFrame(update)
+
+        }
+
+        window.requestAnimationFrame(update)
 
     </script>
 </body>
