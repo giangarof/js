@@ -60,6 +60,33 @@
                 //current page
                 document.getElementById('page-num').textContent = num;
             });
+        };
+
+        //check for pages rendering
+        const renderingPages = num => {
+            if(pageIsRendering){
+                pageNumIsPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        //Prev page
+        const prev = () => {
+            if(pageNum <= 1){
+                return
+            }
+            pageNum--;
+            renderPage(pageNum);
+        }
+
+        //Next page
+        const next = () => {
+            if(pageNum >= pdfDoc.numPages){
+                return
+            }
+            pageNum++;
+            renderPage(pageNum);
         }
 
         //get document
@@ -71,6 +98,11 @@
 
             renderPage(pageNum)
         });
+
+        //btns
+        document.getElementById('prev-page').addEventListener('click', prev)
+        document.getElementById('next-page').addEventListener('click', next)
+
     </script>
 </body>
 </html>
