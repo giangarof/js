@@ -29,6 +29,7 @@
     <div class="score-container">
         <div class="score-title">score</div>
         <span id="score">0</span>
+        <span id="result"></span>
     </div>
 
     <div class="grid"></div>
@@ -39,6 +40,7 @@
             const scoreDisplay = document.getElementById('score');
             const resultDisplay = document.getElementById('result');
             const width = 4;
+            let score = 0
             const squares = [];
 
             //create board
@@ -58,7 +60,9 @@
             function generate(){
                 let randomNumber = Math.floor(Math.random() * squares.length)
                 if(squares[randomNumber].innerHTML == 0){
-                    squares[randomNumber].innerHTML = 2
+                    squares[randomNumber].innerHTML = 2;
+                    //if game over
+                    gameOver()
                     } else generate()
             }
 
@@ -167,8 +171,12 @@
                         let combinedTotal = parseInt(squares[i].innerHTML) + parseInt(squares[i+1].innerHTML)
                         squares[i].innerHTML = combinedTotal;
                         squares[i+1].innerHTML = 0;
+                        score += combinedTotal;
+                        scoreDisplay.innerHTML = score
                     }
                 }
+                //if win
+                win()
             }
 
             //CombineColumn
@@ -178,8 +186,12 @@
                         let combinedTotal = parseInt(squares[i].innerHTML) + parseInt(squares[i+width].innerHTML)
                         squares[i].innerHTML = combinedTotal;
                         squares[i+width].innerHTML = 0;
+                        score += combinedTotal;
+                        scoreDisplay.innerHTML = score
                     }
                 }
+                //if win
+                win()
             }
 
 
@@ -226,6 +238,32 @@
             }
 
             
+            //check is score === 2048
+
+            function win(){
+                for(let i = 0; i < squares.length; i++){
+                    if(squares[i].innerHTML == 2048){
+                        resultDisplay.innerHTML = 'Winner!!!';
+                        document.removeEventListener('keyup', control)
+                    }
+                }
+            }
+        
+            //if no zeros
+            function gameOver(){
+                let z = 0;
+                for(let i = 0; i < squares.length; i++){
+                    if(squares[i].innerHTML == 0){
+                        z++
+                    }
+                }
+
+                if(z === 0){
+                    resultDisplay.innerHTML = 'Game Over...';
+                    document.removeEventListener('keyup', control);
+                }
+            }
+        
         })
 
     </script>
