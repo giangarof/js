@@ -47,18 +47,55 @@
 
     <script>
         let lastRenderTime = 0;
+
+        const gameBoard = document.querySelector('.game-board')
+
         const snake_speed = 1;
+        const snakeBody = [{ x:11, y:11 }]
 
         //exact time the function runs
         function main(currentTime){
-            window.requestAnimationFrame(main)
+            window.requestAnimationFrame(main);
             const secondsLastRender = (currentTime - lastRenderTime) / 1000;
-            if(secondsLastRender < 1 / snake_speed) return
-            console.log(currentTime)
+            if(secondsLastRender < 1 / snake_speed) return;
+            //console.log(currentTime)
             lastRenderTime = currentTime;
+
+            update();
+            draw();
         }
 
-        window.requestAnimationFrame(main)
+        window.requestAnimationFrame(main);
+
+        //Snake Logic
+        function updateSnake(){
+            for(let i = snakeBody.length - 2; i >= 0; i--){
+                snakeBody[i + 1] = { ...snakeBody[i] };
+            }
+            // snakeBody[0].x += 0;
+            // snakeBody[0].y += 1;
+        }
+
+        function drawSnake(gameBoard){
+            //set snake into gameBoard
+            snakeBody.forEach(segment => {
+                const snakeElement = document.createElement('div');
+                snakeElement.style.gridRowStart = segment.x;
+                snakeElement.style.gridColumnStart = segment.y;
+                snakeElement.classList.add('snake');
+                gameBoard.appendChild(snakeElement);
+            })
+        }
+
+        //Gameboard Logic
+        function update(){
+            updateSnake()
+        }
+
+        function draw(){
+            gameBoard.innerHTML = '';
+            drawSnake(gameBoard);
+        }
     </script>
     
 </body>
