@@ -50,10 +50,14 @@
 
         const gameBoard = document.querySelector('.game-board');
 
-        const snake_speed = 1;
+        const snake_speed = 3;
         let inputDirection = { x:0, y:0 };
         let lastInputDirection = { x:0, y:0 };
         let snakeBody = [{ x:11, y:11 }];
+        let newSegment = 0;
+
+        let food = {x:10, y:5};
+        const expansionRate = 1;
 
         //exact time the function runs
         function main(currentTime){
@@ -71,6 +75,8 @@
 
         //Snake Logic
         function updateSnake(){
+            addSegment()
+
             const direction = getInputDirection();
 
             for(let i = snakeBody.length - 2; i >= 0; i--){
@@ -92,8 +98,54 @@
             })
         }
 
+        function expandSnake(amount){
+            newSegment += amount
+
+        }
+
+        function onSnake(position){
+            return snakeBody.some(segment => {
+                return equalPosition(segment, position)
+            })
+        }
+
+        function equalPosition(pos1, pos2){
+            return pos1.x === pos2.x && pos1.y === pos2.y;
+        }
+
+        function addSegment(){
+            for(let i = 0; i < newSegment; i++){
+                snakeBody.push({...snakeBody[snakeBody.length - 1]})
+            }
+            newSegment = 0
+        }
 
 
+
+
+        //Food
+
+        function updateFood(){
+            if(onSnake(food)){
+                expandSnake(expansionRate)
+                food = { x: 20, y: 10 };
+            }
+        }
+
+        function drawFood(gameBoard){
+            //set food into gameBoard
+
+            const foodElement = document.createElement('div');
+            foodElement.style.gridRowStart = food.x;
+            foodElement.style.gridColumnStart = food.y;
+            foodElement.classList.add('food');
+            gameBoard.appendChild(foodElement);
+        
+        }
+
+        function randomFood(){
+            
+        }
 
 
 
@@ -126,23 +178,16 @@
             return inputDirection;
         }
 
-
-
-
-
-
-
-
-
-
         //Gameboard Logic
         function update(){
             updateSnake()
+            updateFood()
         }
 
         function draw(){
             gameBoard.innerHTML = '';
             drawSnake(gameBoard);
+            drawFood(gameBoard)
         }
     </script>
     
