@@ -48,10 +48,12 @@
     <script>
         let lastRenderTime = 0;
 
-        const gameBoard = document.querySelector('.game-board')
+        const gameBoard = document.querySelector('.game-board');
 
         const snake_speed = 1;
-        const snakeBody = [{ x:11, y:11 }]
+        let inputDirection = { x:0, y:0 };
+        let lastInputDirection = { x:0, y:0 };
+        let snakeBody = [{ x:11, y:11 }];
 
         //exact time the function runs
         function main(currentTime){
@@ -69,11 +71,14 @@
 
         //Snake Logic
         function updateSnake(){
+            const direction = getInputDirection();
+
             for(let i = snakeBody.length - 2; i >= 0; i--){
                 snakeBody[i + 1] = { ...snakeBody[i] };
             }
-            // snakeBody[0].x += 0;
-            // snakeBody[0].y += 1;
+
+            snakeBody[0].x += direction.x;
+            snakeBody[0].y += direction.y;
         }
 
         function drawSnake(gameBoard){
@@ -86,6 +91,49 @@
                 gameBoard.appendChild(snakeElement);
             })
         }
+
+
+
+
+
+
+
+        //Direction Logic
+
+        window.addEventListener('keydown', e => {
+            switch (e.key){
+                case 'ArrowUp':
+                    if(lastInputDirection.x !== 0) break
+                    inputDirection = { x:-1, y:0 }
+                    break
+                case 'ArrowDown':
+                    if(lastInputDirection.x !== 0) break
+                    inputDirection = { x:1, y:0 }
+                    break
+                case 'ArrowLeft':
+                    if(lastInputDirection.y !== 0) break
+                    inputDirection = { x:0, y:-1 }
+                    break
+                case 'ArrowRight':
+                    if(lastInputDirection.y !== 0) break
+                    inputDirection = { x:0, y:1 }
+                    break
+            }
+        })
+
+        function getInputDirection(){
+            lastInputDirection = inputDirection;
+            return inputDirection;
+        }
+
+
+
+
+
+
+
+
+
 
         //Gameboard Logic
         function update(){
