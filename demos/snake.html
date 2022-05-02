@@ -65,7 +65,10 @@
         //exact time the function runs
         function main(currentTime){
             if(gameOver){
-                return alert('Game over, try again!')
+                if(confirm('Game Over,try again!')){
+                    window.location = '/demos/snake.html';
+                }
+                return 
             }
             window.requestAnimationFrame(main);
             const secondsLastRender = (currentTime - lastRenderTime) / 1000;
