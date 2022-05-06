@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    body{
+        background-color: rgb(0, 0, 0);
+    }
+
+    nav{
+        margin: auto;
+        width: 90%;
+        padding: 1rem;
+        border-bottom: 3px solid rgb(75, 74, 74);
+        background-color: rgb(0, 0, 0);
+    }
+
+    nav a{
+        font-size: 18px;
+    }
+
+    .search{
+        width: 80%;
+        margin: auto;
+        margin-top: 5%;
+    }
+    
+    .search-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3%;
+        border-radius: 10px;
+        background-color: rgb(172, 168, 168);
+    }
+
+    form{
+        width: 100%;
+    }
+
+    .search-container input {
+        width: 90%;
+        border: none;
+        padding: 7px;
+        margin-top: 2%;
+        border-radius: 10px;
+        outline: none;
+        color: #000;
+    }
+
+    .search-container button{
+        width: 90%;
+        padding: 2px;
+        margin-top: 5px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        color: #000;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        
+    }
+
+    #movies{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .inner-movie{
+        text-align: center;
+        padding-top: 10%;
+    }
+
+    .inner-movie img{
+        width: 240px;
+    }
+
+    .btn{
+        background-color: turquoise;
+        color: #000;
+        padding: 7px;
+        cursor: pointer;
+    }
+
+    @media (min-width:767px) and (max-width: 1020px){
+        
+        #movies{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media all and (max-width: 767px){
+        .container{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            
+        }
+        #movies{
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>
+<body>
+
+    <nav>
+        <div>
+            <a href="#">MovieFinder</a>
+        </div>
+    </nav>
+
+    <div class="search">
+        <div class="search-container">
+            <h2>Look your favorite movie!</h2>
+            <form action="" id="searchForm">
+                <input type="text" id="searchText" placeholder="Search for movies...">
+                <br>
+                <button>Search</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="movies"></div>
+    </div>
+    
+    
+</body>
+</html>
