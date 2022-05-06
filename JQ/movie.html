@@ -63,6 +63,16 @@
         color: #000;
     }
 
+    .search-container button{
+        width: 90%;
+        padding: 2px;
+        margin-top: 5px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        color: #000;
+    }
+
     .container{
         display: flex;
         flex-direction: row;
@@ -115,6 +125,8 @@
             <h2>Look your favorite movie!</h2>
             <form action="" id="searchForm">
                 <input type="text" id="searchText" placeholder="Search for movies...">
+                <br>
+                <button>Search</button>
             </form>
         </div>
     </div>
@@ -131,7 +143,7 @@
                 //Get value from the input
                 let searchText= $('#searchText').val();
                 getMovie(searchText);
-                e.preventDefault()  
+                e.preventDefault();
             });
         });
 
