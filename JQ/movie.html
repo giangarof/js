@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    body{
+        background-color: rgb(0, 0, 0);
+    }
+
+    nav{
+        margin: auto;
+        width: 90%;
+        padding: 1rem;
+        border-bottom: 3px solid rgb(75, 74, 74);
+        background-color: rgb(0, 0, 0);
+    }
+
+    nav a{
+        font-size: 18px;
+    }
+
+    .search{
+        width: 80%;
+        margin: auto;
+        margin-top: 5%;
+    }
+    
+    .search-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3%;
+        border-radius: 10px;
+        background-color: rgb(172, 168, 168);
+    }
+
+    form{
+        width: 100%;
+    }
+
+    .search-container input {
+        width: 90%;
+        border: none;
+        padding: 7px;
+        margin-top: 2%;
+        border-radius: 10px;
+        outline: none;
+        color: #000;
+    }
+</style>
+<body>
+
+    <nav>
+        <div>
+            <a href="#">MovieFinder</a>
+        </div>
+    </nav>
+
+    <div class="search">
+        <div class="search-container">
+            <h2>Look your favorite movie!</h2>
+            <form action="" id="searchForm">
+                <input type="text" id="searchText" placeholder="Search for movies...">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        //When the DOM LOADS
+        $(document).ready(() => {
+            //Select form ID 
+            $('#searchForm').on('submit', (e) => {
+                //Get value from the input
+                let searchText= $('#searchText').val();
+                getMovie(searchText);
+                e.preventDefault()  
+            });
+        });
+
+        //Request API
+        function getMovie(searchText){
+            
+        }
+    </script>
+    
+</body>
+</html>
