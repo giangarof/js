@@ -139,7 +139,7 @@
         //When the DOM LOADS
         $(document).ready(() => {
             //Select form ID 
-            $('#searchForm').on('submit', (e) => {
+            $('#searchForm').on('click', (e) => {
                 //Get value from the input
                 let searchText= $('#searchText').val();
                 getMovie(searchText);
