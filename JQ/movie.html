@@ -93,8 +93,16 @@
         });
 
         //Request API
+        //Fetch the movie api and concat the value
         function getMovie(searchText){
-            
+            axios.get('http://www.omdbapi.com/?apikey=13e27bcd' + '&t=' + searchText)
+                //Return a promise
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     </script>
     
