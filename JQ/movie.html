@@ -62,6 +62,45 @@
         outline: none;
         color: #000;
     }
+
+    .container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        
+    }
+
+    #movies{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .inner-movie{
+        text-align: center;
+        padding-top: 10%;
+    }
+
+    @media (min-width:767px) and (max-width: 1020px){
+        
+        #movies{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media all and (max-width: 767px){
+        .container{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            
+        }
+        #movies{
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 </style>
 <body>
 
@@ -80,6 +119,10 @@
         </div>
     </div>
 
+    <div class="container">
+        <div id="movies"></div>
+    </div>
+
     <script>
         //When the DOM LOADS
         $(document).ready(() => {
@@ -95,10 +138,26 @@
         //Request API
         //Fetch the movie api and concat the value
         function getMovie(searchText){
-            axios.get('http://www.omdbapi.com/?apikey=13e27bcd' + '&t=' + searchText)
+            //"&s=" parameter will fetch all the data related with the posible value
+            axios.get('http://www.omdbapi.com/?apikey=13e27bcd' + '&s=' + searchText)
                 //Return a promise
                 .then((res) => {
-                    console.log(res)
+                    let movies = res.data.Search;
+                    let output = '';
+                    //forEach Movie
+                    $.each(movies, (index, movie) => {
+                        output += `
+                            <div class="container-movie">
+                                <div class="inner-movie">
+                                    <img src="${movie.Poster}"/>
+                                    <h3>${movie.Title}</h3>
+                                    <a onclick="movieSelected('${movie.imdbID}')" class="">Movie Details</a>
+                                </div>
+                            </div>
+                        `
+                    })
+                    //Append to html
+                    $('#movies').html(output);
                 })
                 .catch((err) => {
                     console.log(err)
