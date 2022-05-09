@@ -6,16 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+<style>
+    .container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form{
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+
+    input, button{
+        border-radius: 10px;
+        outline: none;
+        text-align: center;
+        height: 20px;
+    }
+
+    button{
+        border: none;
+        height: 2rem;
+        background-color: black;
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: 1.3px;
+    }
+
+    .p{
+        margin-top: 1rem;
+        border-radius: 10px;
+        padding: 0 10px 0 10px;
+        text-align: center;
+        color: #fff;
+        background-color: rgb(127, 152, 153);
+        font-size: 1.3rem;
+        /* margin: auto; */
+    }
+</style>
 <body>
 
-    <form action="" id="formId">
+    <div class="container">
 
-        <input type="text" placeholder="Search by zipcode" id="input"> <br>
-        <button id="btn" >Click</button>
+        <form action="" id="formId">
     
-    </form>
+            <input type="text" placeholder="Search by zipcode" id="input"> <br>
+            <button id="btn" >Click</button>
+        
+        </form>
+    
+        <div id="p" class="p"></div>
 
-    <div id="p"></div>
+    </div>
+
 
     <script>
         let formId = document.getElementById('formId');
@@ -41,14 +89,12 @@
 
                         //function to require the data and display it into html
                         function appenddata(data){
-                            console.log(data)
-                            //let div = document.getElementById('p');
-                            //let inner = document.createElement('div');
-                            const country = data.country
-                            const state = data.places[0].state
-                            const latitude = data.places[0].latitude
-                            const longitude = data.places[0].longitude
-                            const placeName = data.places[0]['place name']
+                            console.log(data);
+                            const country = data.country;
+                            const state = data.places[0].state;
+                            const latitude = data.places[0].latitude;
+                            const longitude = data.places[0].longitude;
+                            const placeName = data.places[0]['place name'];
                             const zipCode = data['post code'];
 
                             let inner = `<div>
@@ -57,10 +103,10 @@
                                         <p>${latitude}</p>
                                         <p>${longitude}</p>
                                         <p>${placeName}</p>
-                                        <p>ZipCode provided${zipCode}</p>
-                                    </div> `
+                                        <p>ZipCode provided: ${zipCode}</p>
+                                    </div> `;
 
-                            document.getElementById('p').innerHTML = inner
+                            document.getElementById('p').innerHTML = inner;
                             
                         }
                     }
