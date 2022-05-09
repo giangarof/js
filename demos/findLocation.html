@@ -38,25 +38,36 @@
         letter-spacing: 1.3px;
     }
 
-    .p{
+    .info{
         margin-top: 1rem;
         border-radius: 10px;
-        padding: 0 10px 0 10px;
+        padding: 10px;
         text-align: center;
         color: #fff;
         background-color: rgb(127, 152, 153);
         font-size: 1.3rem;
-        /* margin: auto; */
+    }
+    
+    .p_error{
+        margin-top: 1rem;
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 500;
+        text-align: center;
+        
+        font-size: 1.5rem;
+        background-color: rgb(228, 108, 108);
+        color: #000;
     }
 </style>
 <body>
 
     <div class="container">
 
-        <form action="" id="formId">
+        <form id="formId">
     
             <input type="text" placeholder="Search by zipcode" id="input"> <br>
-            <button id="btn" >Click</button>
+            <button id="btn">Click</button>
         
         </form>
     
@@ -69,7 +80,7 @@
         let formId = document.getElementById('formId');
         let input = document.getElementById('input');
         let btn = document.getElementById('btn');
-
+        
             //Declare the form and set prevent default
 
             formId.addEventListener('submit', (e) => {
@@ -77,15 +88,25 @@
 
                 //zipcode function to fetch api with input value, must be a zipcode from us
                 function zipcode(){
+                    let err = document.getElementById('err');
                     fetch('https://api.zippopotam.us/us/' + input.value)
                         //fetch json
-                        .then(res => { 
-                            return res.json()
-                        })
+                        .then(res => { return res.json()})
                         //fetch data
                         .then(data => appenddata(data))
                         //if any error ...
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            console.error('error:', err);
+                            if(err){
+                                return catchError(err);
+                            }
+                        });
+
+                        function catchError(){
+                            let inner = `<p class="p_error">Please provide a valid zipCode</p>`;
+                            document.getElementById('p').innerHTML = inner;
+                            
+                        }
 
                         //function to require the data and display it into html
                         function appenddata(data){
@@ -96,21 +117,19 @@
                             const longitude = data.places[0].longitude;
                             const placeName = data.places[0]['place name'];
                             const zipCode = data['post code'];
-
-                            let inner = `<div>
+    
+                            let inner = `<div class="info">
                                         <p>${country}</p>
                                         <p>${state}</p>
-                                        <p>${latitude}</p>
-                                        <p>${longitude}</p>
-                                        <p>${placeName}</p>
+                                        <p>City: ${placeName}</p>
+                                        <p>Latitude: ${latitude}</p>
+                                        <p>Longitude: ${longitude}</p>
                                         <p>ZipCode provided: ${zipCode}</p>
                                     </div> `;
-
                             document.getElementById('p').innerHTML = inner;
-                            
                         }
                     }
-                    zipcode()
+                    zipcode();
                 })
 
 
