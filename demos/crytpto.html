@@ -6,14 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto news</title>
 </head>
+<style>
+
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        color: unset;
+    }
+
+    body{
+        background-color:rgb(224, 220, 220) ;
+    }
+
+    nav{
+        margin: 1rem 0 1rem 0;
+        padding-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 1.3px solid #000;
+    }
+
+    .inner{
+        text-align: center;
+        background-color: rgba(75, 126, 168, 0.253);
+        margin: 20px;
+        padding: 1.3rem;
+    }
+
+    h4{
+        color: green;
+        padding: 0.7rem;
+    }
+
+
+</style>
 <body>
 
-    <h1>Crypto News</h1>
-    <h3>From Crypto New Live API</h3>
+    <nav>
+        <h1>Crypto News</h1>
+        <h3>From Crypto New Live API</h3>
+    </nav>
 
-    <div class="container" id="container">
-
-    </div>
+    <div class="container" id="container"></div>
 
 
 
@@ -44,11 +81,12 @@
                 const url = data[i].url;
                 const source = data[i].source
                 //create div and append it to main container
-                let inner_container = `<div>
+                let inner_container = `
+                    <div class="inner">
                         <h2>${title}<h2>
-                        <h3>${url}</h3>
-                        <p>${source}</p>
-                    </div>`
+                        <h4><a href="${url}">Link article</a></h4>
+                        <p>Provided by: ${source}</p>
+                    </div> `
 
                 document.getElementById('container').innerHTML += inner_container
 
