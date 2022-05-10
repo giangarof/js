@@ -82,7 +82,6 @@
         let btn = document.getElementById('btn');
         
             //Declare the form and set prevent default
-
             formId.addEventListener('submit', (e) => {
                 e.preventDefault()
 
@@ -97,11 +96,13 @@
                         //if any error ...
                         .catch(err => {
                             console.error('error:', err);
+                            //if error
                             if(err){
-                                return catchError(err);
+                                return catchError();
                             }
                         });
 
+                        //function to catch the error
                         function catchError(){
                             let inner = `<p class="p_error">Please provide a valid zipCode</p>`;
                             document.getElementById('p').innerHTML = inner;

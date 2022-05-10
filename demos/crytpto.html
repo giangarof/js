@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto news</title>
+</head>
+<body>
+
+    <h1>Crypto News</h1>
+    <h3>From Crypto New Live API</h3>
+
+    <div class="container" id="container">
+
+    </div>
+
+
+
+
+    <script>
+        let container = document.getElementById('container')
+        //Url api
+        const url = 'https://crypto-news-live3.p.rapidapi.com/news';
+
+        //fetch api
+        fetch(url, {
+            //enable authotization
+            headers: {
+            'X-RapidAPI-Host': 'crypto-news-live3.p.rapidapi.com',
+            'X-RapidAPI-Key': '26f3698b09msh862cb12b064b263p1f7c43jsn48e5d2371533'
+	}
+        })
+            .then(res => {return res.json()})
+            .then(data => cryptoappend(data))
+            .catch(err => console.error('Error:', err))
+
+        //get the title, url, souce
+        function cryptoappend(data){
+            //Loop the data, 20 is the max
+            for(let i = 0; i < 20; i++){
+                console.log(data[i].title, data[i].url, data[i].source);
+                const title = data[i].title;
+                const url = data[i].url;
+                const source = data[i].source
+                //create div and append it to main container
+                let inner_container = `<div>
+                        <h2>${title}<h2>
+                        <h3>${url}</h3>
+                        <p>${source}</p>
+                    </div>`
+
+                document.getElementById('container').innerHTML += inner_container
+
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
