@@ -74,8 +74,8 @@
 
         //get the title, url, souce
         function cryptoappend(data){
-            //Loop the data, 20 is the max
-            for(let i = 0; i < 20; i++){
+            //Loop the data
+            for(let i = 0; i < data.length; i++){
                 console.log(data[i].title, data[i].url, data[i].source);
                 const title = data[i].title;
                 const url = data[i].url;
