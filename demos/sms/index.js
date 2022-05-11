@@ -6,8 +6,8 @@ const socketio = require('socket.io');
 const app = express();
 
 const xmo = new Nexmo({
-    apiKey: '7832af40',
-    apiSecret: 'WbDpc4M2bLL7t2NF'
+    apiKey: '',
+    apiSecret: ''
 }, {debug:true})
 
 app.set('view engine', 'html');
@@ -28,7 +28,7 @@ app.post('/', (req,res) => {
     const number = req.body.number;
     const text = req.body.text;
     xmo.message.sendSms(
-        '18663141934', number, text, {type: 'unicode'}, 
+        '', number, text, {type: 'unicode'}, 
         (err, responseData) => {
             if(err){
                 console.log(err);
