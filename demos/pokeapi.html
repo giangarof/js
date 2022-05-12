@@ -68,7 +68,9 @@
             e.stopPropagation()
             
             function poke(){
-                fetch(url + searchInput.value)
+                let lowerValue = searchInput.value;
+                let lowercase = lowerValue.charAt(0).toLowerCase() + lowerValue.slice(1)
+                fetch(url + lowercase)
                     .then(res => {return res.json()})
                     .then(data => getData(data))
                     .catch(err => { console.error('err', err)
@@ -89,6 +91,7 @@
 
                     function getData(data){
                         console.log(data)
+
                         const img = data.sprites.front_default;
                         const name = data.name;
                         const id = data.id;
