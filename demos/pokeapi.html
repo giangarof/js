@@ -29,13 +29,18 @@
         padding: 10px;
     }
 
+    .search, button{
+        border-radius: 10px;
+        outline: none;
+        padding: 5px;
+        background-color: rgba(194, 194, 194, 0.493);
+    }
+
     .info{
         background-color: rgba(143, 143, 143, 0.486);
         text-align: center;
         border-radius: 5px;
         padding: 5px;
-        
-        
     }
 
 
@@ -44,14 +49,13 @@
     <main>
         <h3>Look for your favorite pokemon</h3>
         <form id="form">
-            <input type="text" name="" id="search">
-            <button type="button" id="btn">Search</button>
+            <input type="text" name="" id="search" class="search">
+            <button type="submit" id="btn">Search</button>
         </form>
         
         <div id="container" class="container"></div>
     </main>
     
-
     <script>
         let form = document.getElementById('form');
         let searchInput = document.getElementById('search')
@@ -59,15 +63,29 @@
         //let container = document.getElementById('container')
         const url = 'https://pokeapi.co/api/v2/pokemon/';
         
-        btnInput.addEventListener('click', (e) => {
-            // e.preventDefault()
-            // e.stopPropagation()
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
             
             function poke(){
                 fetch(url + searchInput.value)
                     .then(res => {return res.json()})
                     .then(data => getData(data))
-                    .catch(err => console.error('err', err))
+                    .catch(err => { console.error('err', err)
+                        if(err){return getError()}
+                    })
+
+                    function getError(){
+                        //if pokemon name is incorrect
+                        let inner = `<p>We couldn't find ${searchInput.value}, <br> Please write the correct pokemon name</p>`
+                        container.innerHTML = inner;
+
+                        //if input field is empty
+                        if(searchInput.value === ''){
+                            let inner = `<p>Field cant be blank </p>`
+                            container.innerHTML = inner;
+                        }
+                    }
 
                     function getData(data){
                         console.log(data)
@@ -81,7 +99,7 @@
                         console.log(img, name, id, type);
 
                         let inner = `<div class="inner">
-                            <img src="${img}">
+                                <img src="${img}">
                                 <div class="info">
                                     <h2>${id}</h2>
                                     <h2>${capName}</h2>
