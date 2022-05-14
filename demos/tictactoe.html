@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    *, *::after, *::before{
+        box-sizing: border-box;
+    }
+
+    :root{
+        --cell-size: 100px;
+        --mark-size: calc(var(--cell-size) * .9);
+    }
+
+    body{
+        margin: 0;
+    }
+    main{
+        display: flex;
+        justify-content: center;
+    }
+    .board{
+        width: 100vh;
+        height: 100vh;
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        justify-items: center;
+        align-items: center;
+        grid-template-columns: repeat(3, auto);
+    }
+
+    .cell{
+        width: var(--cell-size);
+        height: var(--cell-size);
+        border: 1px solid rgb(0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+
+    }
+
+    .x, .circle{
+        cursor: not-allowed;
+    }
+
+    
+
+    .cell:first-child, .cell:nth-child(2), .cell:nth-child(3){
+        border-top: none;
+    }
+
+    .cell:nth-child(7), .cell:nth-child(8), .cell:nth-child(9){
+        border-bottom: none;
+    }
+
+    .cell:nth-child(3), .cell:nth-child(6), .cell:nth-child(9){
+        border-right: none;
+    }
+
+    .cell:first-child, .cell:nth-child(4), .cell:nth-child(7){
+        border-left: none;
+    }
+
+
+    .x::before, .x::after{
+        content: '';
+        position: absolute;
+        width: calc(var(--mark-size)* .15);
+        height: var(--mark-size);
+        background-color: #000;
+
+    }
+
+    .x::before{
+        transform: rotate(45deg);
+    }
+
+    .x::after{
+        transform: rotate(-45deg);
+    }
+
+
+
+    .circle::before, .circle::after{
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background-color: #000;
+    }
+
+    .circle::before{
+        width: var(--mark-size);
+        height: var(--mark-size);
+        background-color: #000;
+
+    }
+
+    .circle::after{
+        width: calc(var(--mark-size) * .7);
+        height: calc(var(--mark-size) * .7);
+        background-color: #fff;
+    }
+
+
+
+</style>
+<body>
+    <main>
+
+        <div id="board" class="board">
+            <div class="cell x" data-cell></div>
+            <div class="cell circle" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+        </div>
+
+    </main>
+    <div class="win-msg" id="win-msg">
+        <div data-winning-msg-text></div>
+        <button id="restart">Play Again</button>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+</html>

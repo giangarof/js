@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ::placeholder{
+        color: #777;
+    }
+
+    body{
+        background-color: rgba(226, 226, 226, 0.39);
+    }
+
+    main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .msg{
+        text-align: center;
+    }
+
+    .task{
+        border-radius: 10px;
+        padding: 0.3rem;
+        text-align: center;
+        outline: none;
+        background-color: rgba(206, 206, 206, 0.616);
+    }
+
+    .add{
+        border-radius: 15px;
+        padding: 0.3rem;
+        margin: 10px;
+        font-weight: lighter;
+    }
+</style>
+<body>
+
+    <main>
+        <h2>ToDo List</h2>
+    
+        <div class="container">
+            
+            <div id="msg" class="msg"></div>
+
+            <form id="form">
+                <input type="text" name="" id="task" class="task" placeholder="Add Task">
+                <button type="submit" class="add">Add Task</button>
+            </form>
+    
+            <ul id="ul"></ul>
+
+        </div>
+    </main>
+
+    <script>
+
+        let task = [];
+        let form = document.getElementById('form');
+        let inputAdd = document.getElementById('task');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let ul = document.getElementById('ul');
+            let li = document.createElement('li');
+            let msg = document.getElementById('msg')
+
+            //push to the array
+            let arrAdd = inputAdd.value;
+            task.push(arrAdd);
+            inputAdd.value = '';
+            console.log(inputAdd.value);
+
+            //if input is empty display error msg
+            if(arrAdd){
+                //loop the list
+                task.forEach(liTask => {
+                    let inner = `<div class="inner_task">
+                                    ${liTask} <span class="span_task"></span> 
+                                </div>`;
+                    li.innerHTML = inner;
+                    ul.appendChild(li);
+                    
+                });
+                
+            } else if(arrAdd == ''){
+                //let msg = document.getElementById('msg')
+                let msgErr = `<p>List can't be blank</p>`
+                msg.innerHTML = msgErr;
+                return
+
+            }
+
+        });
+
+
+    </script>
+    
+</body>
+</html>
