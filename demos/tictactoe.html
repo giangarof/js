@@ -52,7 +52,25 @@
         cursor: not-allowed;
     }
 
-    
+    .x::before, .x::after{
+        background-color: #000;
+    }
+
+    .cell:not(.x):not(.circle):hover::before, 
+    .cell:not(.x):not(.circle):hover::after{
+        background-color: rgb(172, 172, 172);
+
+    }
+
+    .x::before, .x::after, 
+    .cell:not(.x):not(.circle):hover::before, 
+    .cell:not(.x):not(.circle):hover::after {
+        content: '';
+        position: absolute;
+        width: calc(var(--mark-size)* .15);
+        height: var(--mark-size);
+        
+    }
 
     .cell:first-child, .cell:nth-child(2), .cell:nth-child(3){
         border-top: none;
@@ -70,25 +88,13 @@
         border-left: none;
     }
 
-
-    .x::before, .x::after{
-        content: '';
-        position: absolute;
-        width: calc(var(--mark-size)* .15);
-        height: var(--mark-size);
-        background-color: #000;
-
-    }
-
-    .x::before{
+    .x::before, .cell:hover::before{
         transform: rotate(45deg);
     }
 
-    .x::after{
+    .x::after, .cell:hover::after{
         transform: rotate(-45deg);
     }
-
-
 
     .circle::before, .circle::after{
         content: '';
