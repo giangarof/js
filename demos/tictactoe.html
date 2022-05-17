@@ -118,15 +118,49 @@
         background-color: #fff;
     }
 
+    .win-msg{
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        font-size: 5rem;
+        flex-direction: column;
+    }
+
+    .win-msg button{
+        font-size: 3rem;
+        background-color: #fff;
+        border: 1px solid #000;
+        padding: .25rem .5rem; 
+    }
+
+    .win-msg button:hover{
+        background-color: #000;
+        color: #fff;
+        border-color: #fff;
+
+    }
+
+    .win-msg.show {
+        display: flex;
+    }
+
 
 
 </style>
 <body>
     <main>
 
-        <div class="board x" id="board">
-            <div class="cell x" data-cell></div>
-            <div class="cell circle" data-cell></div>
+        <div class="board" id="board">
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
             <div class="cell" data-cell></div>
             <div class="cell" data-cell></div>
             <div class="cell" data-cell></div>
@@ -138,12 +172,12 @@
 
     </main>
     <div class="win-msg" id="win-msg">
-        <div data-winning-msg-text></div>
+        <div data-winning-msg-text>f</div>
         <button id="restart">Play Again</button>
     </div>
 
     <script>
-
+        
     </script>
 </body>
 </html>
