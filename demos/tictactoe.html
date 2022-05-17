@@ -52,19 +52,20 @@
         cursor: not-allowed;
     }
 
-    .x::before, .x::after{
+    .cell.x::before, .cell.x::after, .cell.circle::before{
         background-color: #000;
     }
 
     .cell:not(.x):not(.circle):hover::before, 
-    .cell:not(.x):not(.circle):hover::after{
+    .cell:not(.x):not(.circle):hover::after,
+    .cell:not(.x):not(.circle):hover::before{
         background-color: rgb(172, 172, 172);
 
     }
 
     .x::before, .x::after, 
-    .cell:not(.x):not(.circle):hover::before, 
-    .cell:not(.x):not(.circle):hover::after {
+    .x .cell:not(.x):not(.circle):hover::before, 
+    .x .cell:not(.x):not(.circle):hover::after {
         content: '';
         position: absolute;
         width: calc(var(--mark-size)* .15);
@@ -96,21 +97,22 @@
         transform: rotate(-45deg);
     }
 
-    .circle::before, .circle::after{
+    .circle::before, .circle::after,
+    .board.circle .cell:not(.x):not(.circle):hover::before,
+    .board.circle .cell:not(.x):not(.circle):hover::after{
         content: '';
         position: absolute;
         border-radius: 50%;
-        background-color: #000;
     }
 
-    .circle::before{
+    .circle::before,
+    .board.circle .cell:not(.x):not(.circle):hover::before{
         width: var(--mark-size);
         height: var(--mark-size);
-        background-color: #000;
-
     }
 
-    .circle::after{
+    .circle::after,
+    .board.circle .cell:not(.x):not(.circle):hover::after{
         width: calc(var(--mark-size) * .7);
         height: calc(var(--mark-size) * .7);
         background-color: #fff;
@@ -122,7 +124,7 @@
 <body>
     <main>
 
-        <div id="board" class="board">
+        <div class="board x" id="board">
             <div class="cell x" data-cell></div>
             <div class="cell circle" data-cell></div>
             <div class="cell" data-cell></div>
