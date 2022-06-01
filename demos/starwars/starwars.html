@@ -7,8 +7,49 @@
     <title>Document</title>
 </head>
 <body>
-    
+
+    <div class="div" id="div">
+        <p id="p"></p>
+    </div>
+
     <script>
+        
+        async function starwars(){
+            const api = await 'https://swapi.dev/api/planets/';
+                fetch(api)
+                    .then(data => {return data.json()})
+                    .then(res => displayPlanets(res))
+                    .catch(err => console.log(err.message))
+        }
+
+        function displayPlanets(data){
+            //const div = document.getElementById('p')
+            for(planet of data.results){
+                const name = planet.name;
+                const rotation = planet.rotation_period;
+                const diameter = planet.diameter;
+                const population = planet.population;
+                const terrain = planet.terrain;
+                console.log(`${name}, ${rotation}`);
+                const p = `
+                    ${name}
+                    ${rotation}
+                    ${diameter}
+                    ${population}
+                    ${terrain}`;
+                
+                // div.append(`${p}<br>`)
+                document.getElementById('p').innerHTML += p + '<br>'
+            }
+        }
+
+        starwars()
+
+
+        
+    </script>
+    
+    <!-- <script>
         async function sw(){
             //run TRY block
             try{
@@ -46,6 +87,6 @@
         //     .then(res => console.log(res))
         //     .catch(err => console.error('Error:', err))
 
-    </script>
+    </script> -->
 </body>
 </html>
