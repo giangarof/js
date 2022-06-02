@@ -23,23 +23,24 @@
         }
 
         function displayPlanets(data){
-            //const div = document.getElementById('p')
+            const div = document.getElementById('p')
             for(planet of data.results){
                 const name = planet.name;
                 const rotation = planet.rotation_period;
                 const diameter = planet.diameter;
                 const population = planet.population;
                 const terrain = planet.terrain;
-                console.log(`${name}, ${rotation}`);
-                const p = `
-                    ${name}
-                    ${rotation}
-                    ${diameter}
-                    ${population}
-                    ${terrain}`;
-                
-                // div.append(`${p}<br>`)
-                document.getElementById('p').innerHTML += p + '<br>'
+                const url = planet.url
+                console.log(url);
+                let p = `<div>
+                    <h2>${name}</h2>
+                    rotation: ${rotation} <br>
+                    diameter: ${diameter} <br>
+                    population: ${population} <br>
+                    terrain: ${terrain} <br>
+                    </div>` ;
+            
+                document.getElementById('p').innerHTML += p;
             }
         }
 

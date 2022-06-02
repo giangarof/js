@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="test.func()">click here</button>
+    <h3 >Code: <span id="rgba"></span></h3>
+
+    <script>
+        //class is a blueprint
+        class Test {
+            //constructor is a function that executes when the class is call
+            //constructor contain the parameter when call the class
+            constructor(r, g, b, a){
+                this.r = r;
+                this.g = g;
+                this.b = b;
+                this.a = a;
+                console.log('ok');
+            }
+
+            func(){ 
+                let {r,g,b} = this;
+
+                //alpha value
+                let alphaRandom = Math.random();
+                let alpha = alphaRandom.toString().slice(0,4);
+
+                //rgb value
+                
+                //This variable wont work
+                //let int = Math.floor(Math.random() * 255);
+
+                //create this way instead
+                r = Math.floor(Math.random() * 256);
+                g = Math.floor(Math.random() * 256);
+                b = Math.floor(Math.random() * 256);
+
+                const back = `rgb(${r}, ${g}, ${b}, ${alpha})`
+                const code = document.getElementById('rgba')
+                document.body.style.backgroundColor = back;
+                code.innerHTML = back
+                return back
+            }
+            
+        }
+
+        const test = new Test()
+    </script>
+    
+</body>
+</html>
