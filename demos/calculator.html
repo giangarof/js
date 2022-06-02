@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    body{
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+    div{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+    }
+
+    .center{
+        padding: 15px;
+        background-color: rgb(213, 215, 216);
+        border-radius: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input{
+        height: 40px;
+        margin: 10px;
+        outline: none;
+        padding: 2px;
+        border: #000 1ps solid
+        
+    }
+
+    .inner{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    } 
+
+    button{
+        margin: 3px;
+        padding: 12px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        font-weight: 900;
+    }
+</style>
+<body>
+    <main>
+        <div>
+            <div class="center">
+                    <input type="text">
+                    <div class="inner">
+                        <button>0</button>
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>4</button>
+                        <button>5</button>
+                        <button>6</button>
+                        <button>7</button>
+                        <button>8</button>
+                        <button>9</button>
+                        <button>X</button>
+                        <button>+</button>
+                        <button>-</button>
+                        <button>%</button>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        
+    </script>
+
+    
+</body>
+</html>
