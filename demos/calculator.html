@@ -58,32 +58,43 @@
         cursor: pointer;
         font-weight: 900;
     }
+
+    .calculation{
+        background-color: #fff;
+        border-radius: 10px;
+        width: 100%;
+        height: 50px;
+        margin: 5px 5px 15px 0;
+        width: 100%;
+        padding: 10px;
+    }
 </style>
 <body>
     <main>
         <div>
             <div class="center">
-                    <input type="text">
-                    <div class="inner">
-                        <button>AC</button>
-                        <button>DEL</button>
-                        <button>.</button>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
-                        <button>6</button>
-                        <button>7</button>
-                        <button>8</button>
-                        <button>9</button>
-                        <button>0</button>
-                        <button>=</button>
-                        <button>X</button>
-                        <button>+</button>
-                        <button>-</button>
-                        <button>%</button>
-                    </div>
+                <div class="calculation" data-current-operand></div>
+                
+                <div class="inner">
+                    <button data-clear>AC</button>
+                    <button data-delete>DEL</button>
+                    <button data-number>.</button>
+                    <button data-number>1</button>
+                    <button data-number>2</button>
+                    <button data-number>3</button>
+                    <button data-number>4</button>
+                    <button data-number>5</button>
+                    <button data-number>6</button>
+                    <button data-number>7</button>
+                    <button data-number>8</button>
+                    <button data-number>9</button>
+                    <button data-number>0</button>
+                    <button data-equals>=</button>
+                    <button data-operation>X</button>
+                    <button data-operation>+</button>
+                    <button data-operation>-</button>
+                    <button data-operation>%</button>
+                </div>
             </div>
         </div>
     </main>
@@ -91,10 +102,70 @@
     <script>
 
         class Calculator {
-            constructor(){
+            constructor(currentText){
+                this.currentText = currentText;
+                this.clear();
+            }
+            
+            clear(){
+                this.currentOperand = '';
+                this.operation = undefined;
+            }
+
+            delete(){
+
+            }
+
+            appendNum(number){
+                if(number === '.' && this.currentOperand.includes('.')) return
+                this.currentOperand = this.currentOperand.toString() + number.toString()
+            }
+
+            setOperation(operation){
+
+            }
+
+            compute(){
+
+            }
+
+            updateDisplay(){
+                this.currentText.innerText = this.currentOperand;
+            }
+
+            add(){
+
+            }
+
+            mult(){
+
+            }
+
+            div(){
+
+            }
+
+            rest(){
 
             }
         }
+
+        const number = document.querySelectorAll('[data-number]');
+        const operation = document.querySelectorAll('[data-operation]');
+        const clearBtn = document.querySelector('[data-clear]');
+        const deleteBtn = document.querySelector('[data-delete]');
+        const equals = document.querySelector('[data-equals]');
+        const current = document.querySelector('[data-current-operand]');
+
+        const calculator = new Calculator(current);
+
+        number.forEach(btn => {
+            btn.addEventListener('click', () => {
+                calculator.appendNum(btn.innerText);
+                calculator.updateDisplay();
+                
+            })
+        })
 
     </script>
 
