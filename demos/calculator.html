@@ -60,21 +60,40 @@
     }
 
     .calculation{
+        width: 100%;
         background-color: #fff;
         border-radius: 10px;
-        width: 100%;
         height: 50px;
         margin: 5px 5px 15px 0;
-        width: 100%;
         padding: 10px;
+    }
+
+    .area{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    .prev{
+        font-size: 13px;
+    }
+
+    .current{
+        font-size: 20px;
     }
 </style>
 <body>
     <main>
         <div>
             <div class="center">
-                <div class="calculation" data-current-operand></div>
-                
+                <div class="calculation">
+                    <div class="area">
+                        <p class="prev" data-previous-operand></p>
+                        <p class="current" data-current-operand></p>
+                    </div>
+                </div>
+
                 <div class="inner">
                     <button data-clear>AC</button>
                     <button data-delete>DEL</button>
@@ -102,13 +121,15 @@
     <script>
 
         class Calculator {
-            constructor(currentText){
+            constructor(previousText, currentText){
+                this.previousText = previousText;
                 this.currentText = currentText;
                 this.clear();
             }
             
             clear(){
                 this.currentOperand = '';
+                this.previousOperand = '';
                 this.operation = undefined;
             }
 
@@ -121,8 +142,14 @@
                 this.currentOperand = this.currentOperand.toString() + number.toString()
             }
 
-            setOperation(operation){
-
+            chooseOperation(operation){
+                if(this.currentOperand === '') return
+                if(this.previousOperand !== ''){
+                    this.compute()
+                }
+                this.operation = operation;
+                this.previousOperand = this.currentOperand
+                this.currentOperand = ''
             }
 
             compute(){
@@ -131,6 +158,8 @@
 
             updateDisplay(){
                 this.currentText.innerText = this.currentOperand;
+                this.previousText.innerText = this.previousOperand;
+
             }
 
             add(){
@@ -155,13 +184,22 @@
         const clearBtn = document.querySelector('[data-clear]');
         const deleteBtn = document.querySelector('[data-delete]');
         const equals = document.querySelector('[data-equals]');
-        const current = document.querySelector('[data-current-operand]');
+        const currentText = document.querySelector('[data-current-operand]');
+        const previousText = document.querySelector('[data-previous-operand]');
 
-        const calculator = new Calculator(current);
+        const calculator = new Calculator(previousText, currentText);
 
         number.forEach(btn => {
             btn.addEventListener('click', () => {
                 calculator.appendNum(btn.innerText);
+                calculator.updateDisplay();
+                
+            })
+        });
+
+        operation.forEach(btn => {
+            btn.addEventListener('click', () => {
+                calculator.chooseOperation(btn.innerText);
                 calculator.updateDisplay();
                 
             })
