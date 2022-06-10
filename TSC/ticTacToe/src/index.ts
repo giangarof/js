@@ -1,6 +1,8 @@
-import { isNonNullExpression } from "typescript";
-
 const board = document.getElementById('game-container') as HTMLDivElement
+const button = document.querySelector('button') as HTMLElement;
+const reset = document.getElementById('reset') as HTMLButtonElement;
+const win = document.getElementById('winner') as HTMLElement;
+
 type Turn = 'X' | 'O' | ''
 let turn : Turn = 'X'
 
@@ -22,9 +24,31 @@ function runGame(e: Event): void{
     if(box === null || box.textContent !== '') return;
     box.textContent = turn;
     const winner: boolean = checkWinner();
-    if(!winner) switchPlayer()
-    else { console.log('winner')}
+    if(!winner){
+        switchPlayer()
+    } else { 
+        endgame()
+        console.log('winner')
+    }
 
+}
+
+function endgame():void{
+    board.removeEventListener('click', runGame);
+    button.addEventListener('click', resetGame);
+    win.textContent = `Winner ${turn}`
+    reset.style.display = 'block'
+    
+}
+
+function resetGame():void{
+    win.textContent = ``
+    reset.style.display = 'none'
+    clearBoard()
+}
+
+function clearBoard():void{
+    
 }
 
 function checkWinner(): boolean{
@@ -45,7 +69,6 @@ function getBoxes():string[]{
     const boxesContent: string[] = [];
     for (let i = 0; i<9; i++){
         const box = document.getElementById(`box-${i}`) as HTMLElement;
-        console.log(box)
         const boxContent: string | null = box.textContent;
         if(boxContent === null){
              boxesContent.push('');

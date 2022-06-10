@@ -5,13 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>var exports = {}</script>
-</head>
+    </head>
+    <script> var exports = {} </script>
 <style>
     .main{
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .winner{
+        color: gold;
     }
 
     .game-container{
@@ -28,7 +32,7 @@
         font-weight:lighter;
         transition: transform .9s;
         cursor: pointer;
-        visibility: hidden;
+        display: none;
     }
 
     button:hover{
@@ -46,13 +50,14 @@
         color: aliceblue;
         margin: 8px;
     }
+
 </style>
 <body>
     <div class="main">
         <h1>Tic Tac Toe</h1>
         <div class="game-container" id="game-container"></div>
-        <h1 class="winner"></h1>
-        <button class="btn">Play Again</button>
+        <h1 class="winner" id="winner"></h1>
+        <button class="btn" id="reset">Play Again</button>
     </div>
     
     <script src="./dist/index.js"></script>

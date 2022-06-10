@@ -1,6 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const board = document.getElementById('game-container');
+const button = document.querySelector('button');
+const reset = document.getElementById('reset');
+const win = document.getElementById('winner');
 let turn = 'X';
 function listenBoard() {
     board.addEventListener('click', runGame);
@@ -19,11 +21,26 @@ function runGame(e) {
         return;
     box.textContent = turn;
     const winner = checkWinner();
-    if (!winner)
+    if (!winner) {
         switchPlayer();
+    }
     else {
+        endgame();
         console.log('winner');
     }
+}
+function endgame() {
+    board.removeEventListener('click', runGame);
+    button.addEventListener('click', resetGame);
+    win.textContent = `Winner ${turn}`;
+    reset.style.display = 'block';
+}
+function resetGame() {
+    win.textContent = ``;
+    reset.style.display = 'none';
+    clearBoard();
+}
+function clearBoard() {
 }
 function checkWinner() {
     const boxes = getBoxes();
@@ -40,7 +57,6 @@ function getBoxes() {
     const boxesContent = [];
     for (let i = 0; i < 9; i++) {
         const box = document.getElementById(`box-${i}`);
-        console.log(box);
         const boxContent = box.textContent;
         if (boxContent === null) {
             boxesContent.push('');
