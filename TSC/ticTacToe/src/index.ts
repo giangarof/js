@@ -60,12 +60,12 @@ function checkWinner(): boolean{
     return(
         (boxes[0] === boxes[1] && boxes[1] === boxes[2] && boxes[0] !== '') ||
         (boxes[3] === boxes[4] && boxes[4] === boxes[5] && boxes[3] !== '') ||
-        (boxes[6] === boxes[7] && boxes[7] === boxes[6] && boxes[6] !== '') ||
-        (boxes[0] === boxes[4] && boxes[4] === boxes[2] && boxes[0] !== '') ||
-        (boxes[2] === boxes[4] && boxes[4] === boxes[2] && boxes[2] !== '') ||
-        (boxes[1] === boxes[4] && boxes[4] === boxes[2] && boxes[1] !== '') ||
-        (boxes[0] === boxes[3] && boxes[3] === boxes[2] && boxes[0] !== '') ||
-        (boxes[2] === boxes[5] && boxes[5] === boxes[2] && boxes[2] !== '')
+        (boxes[6] === boxes[7] && boxes[7] === boxes[8] && boxes[6] !== '') ||
+        (boxes[0] === boxes[4] && boxes[4] === boxes[8] && boxes[0] !== '') ||
+        (boxes[2] === boxes[4] && boxes[4] === boxes[6] && boxes[2] !== '') ||
+        (boxes[1] === boxes[4] && boxes[4] === boxes[7] && boxes[1] !== '') ||
+        (boxes[0] === boxes[3] && boxes[3] === boxes[6] && boxes[0] !== '') ||
+        (boxes[2] === boxes[5] && boxes[5] === boxes[8] && boxes[2] !== '')
     )
 }
 
