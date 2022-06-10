@@ -5,7 +5,9 @@ function main(): void{
 }
 
 function createBoard():void{
-    for(let i = 0; i < 9; i++)makeBox(i)
+    for(let i = 0; i < 9; i++){
+        makeBox(i)
+    }
     
 
 }
@@ -13,7 +15,7 @@ function createBoard():void{
 function makeBox(i:number):void{
     const box:HTMLDivElement = document.createElement('div');
     box.className = 'box';
-    box.id = `box-${i}`
+    box.id = `box-${i}`;
     box.textContent = 'X';
     gameContainer.append(box);
 }

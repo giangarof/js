@@ -4,8 +4,9 @@ function main() {
     createBoard();
 }
 function createBoard() {
-    for (let i = 0; i < 9; i++)
+    for (let i = 0; i < 9; i++) {
         makeBox(i);
+    }
 }
 function makeBox(i) {
     const box = document.createElement('div');
