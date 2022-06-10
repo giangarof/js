@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form{
+        text-align: center;
+    }
+
+    input{
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        background-color: rgb(216, 216, 216);
+        color: #000;
+        font-weight: bold;
+        padding: 10px;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>PokeApi</h1>
+        <h3>With TypeScript</h3>
+        <form class="form" id="form">
+            <h3>Find your favorite Pokemon!</h3>
+            <input id="input" type="text" placeholder="Type here">
+            <button>Find</button>
+        </form>
+        <div class="data" id="data"></div>
+    </div>
+
+    <script src="./dist/index.js"></script>
+</body>
+</html>
