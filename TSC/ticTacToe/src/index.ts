@@ -45,10 +45,14 @@ function resetGame():void{
     win.textContent = ``
     reset.style.display = 'none'
     clearBoard()
+    listenBoard()
 }
 
 function clearBoard():void{
-    
+    for(let i = 0; i < 9; i++){
+        const box = document.getElementById(`box-${i}`) as HTMLElement
+        box.textContent = ''
+    }
 }
 
 function checkWinner(): boolean{

@@ -39,8 +39,13 @@ function resetGame() {
     win.textContent = ``;
     reset.style.display = 'none';
     clearBoard();
+    listenBoard();
 }
 function clearBoard() {
+    for (let i = 0; i < 9; i++) {
+        const box = document.getElementById(`box-${i}`);
+        box.textContent = '';
+    }
 }
 function checkWinner() {
     const boxes = getBoxes();
