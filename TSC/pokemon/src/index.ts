@@ -17,6 +17,10 @@ form.addEventListener('submit', e => {
     function pokeData(data:any):void{
         // const name = data.name
         console.log(data)
+        console.log(data.name)
+        console.log(data.types[0].type.name)
+        console.log(data.weight)
+        console.log(data.location_area_encounters)
     }
 
 
