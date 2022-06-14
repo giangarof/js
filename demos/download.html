@@ -52,6 +52,7 @@
         <div class="container">
             <div class="top">
                 <h2>Downloader</h2>
+                <p>Jpeg, jpg, pdf</p>
             </div>
             <form action="">
                 <div class="bottom">
@@ -68,8 +69,33 @@
 
         btn.addEventListener('click', e => {
             e.preventDefault()
-            alert('ok')
+            if(!input.value){
+                alert('must be a valid link')
+            } else {
+                fetchFile(input.value)
+            }
+
+            console.log(input.value)
         })
+
+        function fetchFile(url){
+            fetch(url)
+                .then(res => res.blob())
+                .then(file => {
+                    let tempUrl = URL.createObjectURL(file);
+                    let aTag = document.createElement('a');
+                    aTag.href= tempUrl;
+                    aTag.download = url.replace(/^.*[\\\/]/,''); 
+                    document.body.appendChild(aTag);
+                    aTag.click();
+                    aTag.remove()
+                    URL.revokeObjectURL(tempUrl);
+
+                })
+                .catch(() => {
+                    alert('Something went wrong, try again')
+                }) 
+        }
 
     </script>
     
