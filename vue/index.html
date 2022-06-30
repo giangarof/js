@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+
+    <!-- CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+        //Initialize the application
+
+        //first method
+        Vue.createApp({
+            data(){
+                return {
+                    msg: 'hi'
+                }
+            }
+        }).mount('#app')
+
+        //Second method
+        // const {createApp} = Vue;
+
+        // createApp({
+        //     data(){
+        //         return {
+        //             msg: 'Hello'
+        //         }
+        //     }
+        // }).mount('#app')
+
+        //Mount: Insert a Vue application into the document
+    </script>
+</body>
+</html>
