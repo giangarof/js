@@ -6,9 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    /* Directive */
+    [v-cloak]{
+        display: none;
+    }
+</style>
 <body>
-    <div id="app">
-        {{msg}}
+    <div id="app" v-cloak>
+        {{ start() }}
+    </div>
+
+    <div class="app" v-cloak>
+        {{ start() }}
     </div>
 
     <!-- CDN -->
@@ -21,10 +31,32 @@
         Vue.createApp({
             data(){
                 return {
-                    msg: 'hi'
+                    message: 'Hello',
+                    msg: 'World'
+                }
+            },
+            methods: {
+                start() {
+                    return ` ${this.message} ${this.msg} `
                 }
             }
         }).mount('#app')
+
+        const vm = Vue.createApp({
+            data(){
+                return {
+                    message: 'Hello World',
+                    msg: '2'
+                }
+            },
+            methods: {
+                start(){
+                    return ` ${this.message} ${this.msg} `
+                }
+            }
+        }).mount('.app')
+
+        setTimeout(() => {vm.message = 'Hello World x'}, 2000)
 
         //Second method
         // const {createApp} = Vue;
@@ -38,6 +70,12 @@
         // }).mount('#app')
 
         //Mount: Insert a Vue application into the document
+        //Data(): function that set the data into the application
+
+        //Expresion: Block of code that evaluates a value
+        //Proxy: A figure that represents the value of something in calculation
+        //Method: Function to perform a task
+        //Directives: Attributes that chain the behavior of the element into which is applied
     </script>
 </body>
 </html>
