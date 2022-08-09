@@ -9,6 +9,9 @@
 </head>
 <style>
 
+.inject{
+    text-align: center;
+}
 </style>
 <body>
 
@@ -61,6 +64,21 @@
         </form>
     </div>
 
+    <!-- DOM -->
+    <hr>
+
+    <div class="container3">
+        <h1 class="hello"></h1>
+        <div class="div">Lorem ipsum dolor sit, amet consectetur adipisicing.</div>
+        <button class="btn3">Click</button>
+        <p>Lorem ipsum dolor sit.</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
+    </div>
+
+    <h3 class="num"></h3>
+
+    
+
     <script>
 
         //$(document).ready(function(){}) --> when loads the full website
@@ -80,6 +98,21 @@
         //keyup()
         //change()
         //submit()
+        //addClass()
+        //removeClass()
+        //toggleClass()
+        //append()
+        //preappend()
+        //appendTo()
+        //prependTo()
+        //empty()
+        //detach()
+        //attr()
+        //removeAttr()
+        //wrap()
+        //wrapAll()
+        //each()
+        //toArray()
 
 
         $('#pOne').hide();
@@ -126,6 +159,36 @@
             let fullname = $('input#name').val()
             alert(fullname)
         })
+
+        //DOM
+
+        $('.div').css({
+            color:'blue',
+            fontSize: '30px',
+            backgroundColor: 'red'
+        })
+
+        $('.container3').addClass('inject')
+
+        $('.btn3').click(function(){
+            $('#form').toggleClass('inject')
+            $('.hello').text('Hi There!')
+
+        })
+
+        alert($('div').text())
+
+        $('#container').before('<h2 class="h2">Hello</h2>')
+        $('#container').after('<h2 class="h2">World</h2>')
+        $('.h2').addClass('inject')
+
+
+        let arr = ['one', 'two', 'three'];
+        $.each(arr, function(i,val){
+            console.log(val)
+            $('.num').append(val)
+        })
+
 
 
 
