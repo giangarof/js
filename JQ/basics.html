@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+
+</style>
+<body>
+
+    <div id="container">
+        <h1 id="one">First</h1>
+        <p id="pOne">Lorem ipsum dolor sit,<span>Lorem, ipsum.</span> amet consectetur adipisicing elit.</p>
+        
+        <h1 class="two">First</h1>
+        <p class="pTwo">Lorem ipsum dolor sit, <span>Lorem, ipsum dolor.</span> amet consectetur adipisicing elit.</p>
+        
+    <ul>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+    </ul>
+
+    <button>Button</button>
+    <input type="text">
+    <a href="http://google.com">Google</a>
+    <a href="http://facebook.com">Facebook</a>
+    </div>
+
+    <script>
+
+        //Selectors
+        //.hide()
+        //.css()
+
+        $('#pOne').hide();
+        $('.two').hide();
+        $('span').css('font-size', '20px');
+
+        $('li:last').css('color', 'red')
+        $('li:even').css('background-color', 'blue')
+        $('li:odd').css('background-color', 'orange')
+
+        $(':text').hide()
+        $('[href]:first').css('color', 'green')
+        $('[href]:last').css('font-size', '30px')
+
+
+    </script>
+    
+</body>
+</html>
