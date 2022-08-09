@@ -28,17 +28,59 @@
         <li>item</li>
     </ul>
 
-    <button>Button</button>
-    <input type="text">
-    <a href="http://google.com">Google</a>
-    <a href="http://facebook.com">Facebook</a>
+        <button id="btn1">Button</button>
+        <button id="btn2">Button</button>
+        <input type="text" id="input">
+        <a href="http://google.com">Google</a>
+        <a href="http://facebook.com">Facebook</a>
+    </div>
+    
+    
+    <button id="btn3">Button</button>
+    <p id="p">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet, quis?d</p>
+    <p id="b"></p>
+
+    <hr>
+
+    <div id="container2">
+        <!-- form -->
+
+        <form id="form">
+            <label for="">Name</label>
+            <input type="text" id="name" name="name">
+            <br>
+            <label for="">Email</label>
+            <input type="text" id="email" name="email">
+            <br>
+            <label for="">Gender</label>
+            <select name="gender" id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <input type="submit" value="submit">
+        </form>
     </div>
 
     <script>
 
+        //$(document).ready(function(){}) --> when loads the full website
+
         //Selectors
         //.hide()
         //.css()
+        //.show()
+        //.toggle()
+        //on()
+        //dbclick()
+        //click()
+        //hover()
+        //html()
+        //focus()
+        //blur()
+        //keyup()
+        //change()
+        //submit()
+
 
         $('#pOne').hide();
         $('.two').hide();
@@ -48,9 +90,43 @@
         $('li:even').css('background-color', 'blue')
         $('li:odd').css('background-color', 'orange')
 
-        $(':text').hide()
+        $('#input').hide()
         $('[href]:first').css('color', 'green')
         $('[href]:last').css('font-size', '30px')
+
+        $('#btn1').click(function(){alert('clicked btn1')})
+
+        $('#btn2').on('click', function(){
+            $('ul').hide();
+            $('#pOne').show()
+        })
+
+        $('#btn3').click(function() {
+            $('#container').toggle()
+            $('#p').toggle()
+        })
+
+        $('#p').hide()
+        $(document).on('mousemove', function(e){
+            $('#b').html(e.timeStamp)
+        })
+
+        //form
+
+        $('input').focus(function(){
+            $(this).css('background-color', 'red')
+        })
+
+        $('input').blur(function(){
+            $(this).css('background-color', 'green')
+        })
+
+        $('#form').submit(function(e){
+            e.preventDefault();
+            let fullname = $('input#name').val()
+            alert(fullname)
+        })
+
 
 
     </script>
