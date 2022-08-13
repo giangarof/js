@@ -95,7 +95,7 @@
         <span id="back">back</span>
 
         <div id="slider">
-            <div class="slide active">
+            <div class="slide">
                 <div class="slide-copy">
                     <h2>Slide One</h2>
                     <p>Lorem ipsum dolor sit amet.</p>
@@ -122,6 +122,70 @@
     </div>
     
     <script>
+
+        $(document).ready(function(){
+            let speed = 500;
+            let switcher = true;
+            let autoSwitch_speed = 3000;
+
+            $('.slide').first().addClass('active')  //Add initial slide active class
+
+            $('.slide').hide()                      //Hide all
+
+            $('.active').show()                     //Show first slide
+        
+
+            //function to next img
+            $('#next').on('click', nextSlider)
+
+            //function to prev img
+            $('#back').on('click', backSlider)
+
+            //auto slider
+            if(switcher === true){
+                setInterval(function(){
+                    $('.active').removeClass('active').addClass('inactive')
+                    if($('.inactive').is(':last-child')){
+                        $('.slide').first().addClass('active')
+                    } else {
+                        $('.inactive').next().addClass('active')
+                    }
+
+                    $('.inactive').removeClass('inactive');
+                    $('.slide').fadeOut(speed)
+                    $('.active').fadeIn(speed)
+                }, autoSwitch_speed)
+            }
+
+            function nextSlider(){
+                $('.active').removeClass('active').addClass('inactive')
+                if($('.inactive').is(':last-child')){
+                    $('.slide').first().addClass('active')
+                } else {
+                    $('.inactive').next().addClass('active')
+                }
+
+                $('.inactive').removeClass('inactive');
+                $('.slide').fadeOut(speed)
+                $('.active').fadeIn(speed)
+            }
+
+            function backSlider(){
+                $('.active').removeClass('active').addClass('inactive')
+                if($('.inactive').is(':first-child')){
+                    $('.slide').last().addClass('active')
+                } else {
+                    $('.inactive').prev().addClass('active')
+                }
+
+                $('.inactive').removeClass('inactive');
+                $('.slide').fadeOut(speed)
+                $('.active').fadeIn(speed)
+            }
+
+
+        
+        })
         
     </script>
 </body>
