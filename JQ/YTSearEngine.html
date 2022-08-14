@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<style>
+
+    *{
+        padding: 0;
+        margin: 0;
+    }
+
+    body{
+        line-height: 1.6em;
+        color: #666;
+        background-color: #e1e1e1;
+        font-size: 14px;
+    }
+
+    a{
+        color: #333;
+        text-decoration: none;
+    }
+
+    #container{
+        width: 740px;
+        background-color: #fff;
+        margin: auto;
+    }
+
+    .clearfix{
+        clear: both;
+    }
+
+    header{
+        padding: 30px 20px;
+    }
+
+    header h1{
+        color: #000;
+        margin-bottom: 5px;
+    }
+
+    section{
+        padding: 30px 20px 20px 20px;
+    }
+
+    footer{
+        padding: 20px;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    #search-form{
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .fieldContainer{
+        display: block;
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #search-btn:hover{
+        filter: alpha(opacity-90);
+        opacity: 0.9;
+    }
+
+    .search-field{
+        box-sizing: border-box;
+        display: block;
+        width: 45%;
+        padding: 11px 7px;
+        padding-right: 43px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #c8c8c8;
+        font-size: 1.6rem;
+        border-bottom-color: #d2e2e7;
+        border-radius: 1px;
+        box-shadow: inset 0 1pz 2px rgba(0,0,0, 0.1);
+    }
+
+    .search-field:focus{
+        outline-width: 0;
+    }
+
+    #search-btn{
+        
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 10px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+        cursor: pointer;
+
+    }
+
+    #search-btn:hover{
+        opacity: 0.9;
+    }
+</style>
+<body>
+
+    <div id="container">
+        <header>
+            <h1>Youtube finder</h1>
+            <span>Search all youtube videos </span>
+        </header>
+
+        <section>
+            <form action="" id="search-form" onsubmit="return searchFunc()">
+                <div class="fieldContainer">
+                    <input type="search" name="" id="query" class="search-field" placeholder="search ...">
+                    <input type="submit" id="search-btn" name="search-btn" value="Search">
+                </div>
+            </form>
+            
+            <ul id="results"></ul>
+            <div id="buttons"></div>
+        </section>
+        <footer>
+            All rights reserved &copy; 2022
+        </footer>
+    </div>
+
+
+    <script>
+
+        $(document).ready(function(){
+
+            //Event handler animation
+            let searchField = $('#query');
+            let icon = $('#search');
+
+            $(function(){
+
+                //Event handler animation when click the search bar
+                $(searchField).on('focus', function(){
+                    $(this).animate({
+                        width: '100%'
+                    }, 400);
+                    $(icon).animate({
+                        right: '10px'
+                    }, 400);
+                });
+
+                //Event handler animation when leave the search bar
+                $(searchField).on('blur', function(){
+                    if(searchField.val() == ''){
+                        $(searchField).animate({
+                            width: '45%'
+                        }, 400,  function(){});
+                       $(icon).animate({
+                           right: '360px'
+                       }, 400, function(){}) 
+                    }
+                });
+            })
+        });
+
+        //AIzaSyAwPGwAqzjmMahzJoP1qADbD9lUGS1FAHs  API Key
+
+    </script>
+    
+</body>
+</html>
