@@ -116,7 +116,7 @@
         </header>
 
         <section>
-            <form action="" id="search-form" onsubmit="return searchFunc()">
+            <form action="" id="search-form" onsubmit="return search()">
                 <div class="fieldContainer">
                     <input type="search" name="" id="query" class="search-field" placeholder="search ...">
                     <input type="submit" id="search-btn" name="search-btn" value="Search">
@@ -134,7 +134,7 @@
 
     <script>
 
-        $(document).ready(function(){
+        //$(document).ready(function(){
 
             //Event handler animation
             let searchField = $('#query');
@@ -163,8 +163,41 @@
                        }, 400, function(){}) 
                     }
                 });
+
+                $('#search-form').submit(function(e){
+                    e.preventDefault()
+                })
+                
             })
-        });
+
+            //function to get data from api
+
+            function search(){
+                $('#results').html('');
+                $('#buttons').html('');
+
+                q = $('#query').val();
+
+                $.get('https://www.googleapis.com/youtube/v3/search', {
+                    part: 'snippet, id',
+                    q:q,
+                    type: 'video',
+                    key: 'AIzaSyAwPGwAqzjmMahzJoP1qADbD9lUGS1FAHs'
+                }, function(data){
+                    let nextPageToken = data.nextPageToken;
+                    let prevPageToken = data.prevPageToken;
+                    //console.log(data)
+
+                    $.each(data.items, function(i, item){
+                        let output = getOutput(item);
+
+                        $('#results').append('output')
+                    })
+                })
+            }
+            
+
+        //});
 
         //AIzaSyAwPGwAqzjmMahzJoP1qADbD9lUGS1FAHs  API Key
 
