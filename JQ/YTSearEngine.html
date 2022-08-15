@@ -17,7 +17,7 @@
     body{
         line-height: 1.6em;
         color: #666;
-        background-color: #e1e1e1;
+        background-color: #1f1d1d;
         font-size: 14px;
     }
 
@@ -30,6 +30,7 @@
         width: 740px;
         background-color: #fff;
         margin: auto;
+        box-shadow: inset 1px 1px 20px 0px
     }
 
     .clearfix{
@@ -38,6 +39,7 @@
 
     header{
         padding: 30px 20px;
+        text-align: center;
     }
 
     header h1{
@@ -45,13 +47,14 @@
         margin-bottom: 5px;
     }
 
-    section{
+    /* section{
         padding: 30px 20px 20px 20px;
-    }
+    } */
 
     footer{
         padding: 20px;
-        background-color: #f4f4f4;
+        background-color: #ff0000cb;
+        color: #fff;
         text-align: center;
     }
 
@@ -100,12 +103,33 @@
         font-weight: 700;
         letter-spacing: 1.4px;
         cursor: pointer;
+        background-color: rgba(54, 54, 54, 0.534);
+        color: #fff;
 
     }
 
     #search-btn:hover{
         opacity: 0.9;
     }
+
+    #results{
+        text-align: center;
+        font-size: 14px;
+    }
+
+    #results li{
+        padding: 14px;
+    }
+
+    .list-right{
+        background-color: #ff0000;
+        color: #fff;
+        width: 450px;
+        margin: 0 auto;
+        padding: 14px;
+    }
+
+    
 </style>
 <body>
 
@@ -170,8 +194,8 @@
                 
             })
 
-            //function to get data from api
 
+            //function to get data from api
             function search(){
                 $('#results').html('');
                 $('#buttons').html('');
@@ -191,11 +215,45 @@
                     $.each(data.items, function(i, item){
                         let output = getOutput(item);
 
-                        $('#results').append('output')
+                        $('#results').append(output)
                     })
                 })
             }
             
+
+            function getOutput(item){
+                let videoId = item.id.videoId;
+                let title = item.snippet.title;
+                let description = item.snippet.title;
+                let thumb = item.snippet.thumbnails.high.url;
+                let channelTitle = item.snippet.channelTitle;
+                let videoDate = item.snippet.publishedAt;
+            
+                let output = `
+                    <li>
+                        <div class="list-left">
+                            <img src="${thumb}"/>
+                        </div>
+                        <div class="list-right">
+                            <h3>${title}</h3>
+                            <small>By <span class="cTitle">${channelTitle}</span> <br> ${videoDate}</small>
+                            <p>${description}</p>
+                        </div>
+                    </li>
+                    <div class="clearfix">  </div>
+                `  
+                return output          
+            }
+
+            function getButtons(prevPageToken, nextPageToken){
+                if(!prevPageToken){
+                    let btnOutput = `
+                        <div class="button-container">
+                            <button id="next-button" class="paging-button" data-token="${nextPageToken}"></button>
+                        </div>
+                    `
+                }
+            }
 
         //});
 
