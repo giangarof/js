@@ -129,6 +129,25 @@
         padding: 14px;
     }
 
+    .button-container{
+        margin-top: 21px;
+        text-align: center;
+    }
+
+    .paging-button{
+        background-color: #f4f4f4;
+        padding: 11px;
+
+        margin: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border: 0.8 solid #cecece;
+        border-radius: 8px;
+        letter-spacing: 1.6px;
+        outline: none;
+        font-weight: 700;
+    }
+
     
 </style>
 <body>
@@ -208,19 +227,56 @@
                     type: 'video',
                     key: 'AIzaSyAwPGwAqzjmMahzJoP1qADbD9lUGS1FAHs'
                 }, function(data){
-                    let nextPageToken = data.nextPageToken;
                     let prevPageToken = data.prevPageToken;
+                    let nextPageToken = data.nextPageToken;
                     //console.log(data)
 
                     $.each(data.items, function(i, item){
                         let output = getOutput(item);
 
                         $('#results').append(output)
-                    })
+                    });
+
+                    let buttons = getButtons(prevPageToken, nextPageToken)
+                    
+                    $('#buttons').append(buttons)
                 })
             }
-            
 
+            function nextPage(){
+                let token = $('#next-button').data('token');
+                let q = $('#next-button').data('query');
+
+                $('#results').html('');
+                $('#buttons').html('');
+
+                q = $('#query').val();
+
+                $.get('https://www.googleapis.com/youtube/v3/search', {
+                    part: 'snippet, id',
+                    q:q,
+                    pageToken:token,
+                    type: 'video',
+                    key: 'AIzaSyAwPGwAqzjmMahzJoP1qADbD9lUGS1FAHs'
+                }, function(data){
+                    let prevPageToken = data.prevPageToken;
+                    let nextPageToken = data.nextPageToken;
+                    //console.log(data)
+
+                    $.each(data.items, function(i, item){
+                        let output = getOutput(item);
+
+                        $('#results').append(output)
+                    });
+
+                    let buttons = getButtons(prevPageToken, nextPageToken)
+                    
+                    $('#buttons').append(buttons)
+                })
+            }        
+
+
+            //Display api result
             function getOutput(item){
                 let videoId = item.id.videoId;
                 let title = item.snippet.title;
@@ -245,14 +301,32 @@
                 return output          
             }
 
+            //Display buttons
             function getButtons(prevPageToken, nextPageToken){
                 if(!prevPageToken){
                     let btnOutput = `
                         <div class="button-container">
-                            <button id="next-button" class="paging-button" data-token="${nextPageToken}"></button>
+                            <button id="next-button" class="paging-button" data-token="${nextPageToken}" data-query="${q}" onclick="nextPage()">
+                                Next Page
+                            </button>
                         </div>
                     `
+                    return btnOutput;
+                } else {
+                    let btnOutput = `
+                        <div class="button-container">
+                            <button id="prev-button" class="paging-button" data-token="${prevPageToken}" data-query="${q}" onclick="prevPage()">
+                                Prev Page
+                            </button>
+                            
+                            <button id="next-button" class="paging-button" data-token="${nextPageToken}" data-query="${q}" onclick="nextPage()">
+                                Next Page
+                            </button>
+                        </div>
+                    `
+                    return btnOutput;
                 }
+
             }
 
         //});
