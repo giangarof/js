@@ -5,10 +5,72 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
-     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+     <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script> -->
  </head>
  <style>
-     
+     *{
+         margin: 0;
+         padding: 0;
+         list-style: none;
+     }
+
+     body{
+         font-size: 16px;
+         color: #666;
+         background-color: #f9f9f9;
+         line-height: 1.6em;
+        
+     }
+
+     #container{
+         width: 60%;
+         margin: 30px auto;
+         overflow: auto;
+
+     }
+
+     h1{
+         text-align: center;
+         margin-bottom: 20px;
+     }
+
+     .title{
+        height: 40px;
+        background-color: #6bb170;
+        color: #fff;
+        text-align: center;
+        padding-top: 13px;    
+    }
+
+    .faq{
+        padding: 20px;
+    }
+
+    .q{
+        background-color: #eee;
+        font-weight: bold;
+        font-size: 20px;
+        border-bottom: 1px #ddd solid;
+        cursor: pointer;
+        padding: 20px;
+    }
+
+    .a{
+        background-color: #ddd;
+        padding: 10px;
+        display: none;
+    }
+
+    span{
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    @media(max-width:800px){
+        #container{
+            width: 90%;
+        }
+    }
  </style>
  <body>
 
@@ -16,17 +78,17 @@
         <h1>Acordion</h1>
         <div class="title">FAQ Slider with JQuery</div>
         <ul class="faq">
-            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet.</li>
-            <li class="a">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, saepe?</li>
+            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</li>
+            <li class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, maxime. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, voluptates?</li>
         
-            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet.</li>
-            <li class="a">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, saepe?</li>
+            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</li>
+            <li class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, maxime. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, rerum.</li>
         
-            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet.</li>
-            <li class="a">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, saepe?</li>
+            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</li>
+            <li class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, maxime. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, rerum.</li>
         
-            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet.</li>
-            <li class="a">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, saepe?</li>
+            <li class="q"> <span> -> </span> Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</li>
+            <li class="a">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, maxime. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, rerum.</li>
         
         </ul>
     </div>
