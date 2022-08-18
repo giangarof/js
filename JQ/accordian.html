@@ -5,7 +5,7 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
-     <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script> -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
  </head>
  <style>
      *{
@@ -66,6 +66,10 @@
         font-weight: 900;
     }
 
+    .rotate{
+        transform: rotate(90deg);
+    }
+
     @media(max-width:800px){
         #container{
             width: 90%;
@@ -92,6 +96,26 @@
         
         </ul>
     </div>
+
+    <script>
+        let action = 'click';
+        let speed = 500;
+        
+        $(document).ready(function(){
+            $('li.q').on(action, function(){
+                $(this).next()
+                    .slideToggle(speed)
+                    .siblings('li.a')
+                    .slideUp()
+
+                    let arrow = $(this).children('span')
+
+                    $('span').not(arrow).removeClass('rotate');
+
+                    arrow.toggleClass('rotate')
+            })
+        })
+    </script>
      
  </body>
  </html>
