@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./lightbox.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="./lightbox.js"></script>
 </head>
 <style>
     body{margin: 0; padding: 0; color: #666;line-height: 1.6;}
@@ -48,6 +49,21 @@
     .overlay{display: none; background-color: rgb(3,137,156, 0.8); color: #fff; position: absolute; top: 0; left: 0; z-index: 100; width: 100%; height: 100%; padding: 20px; border-radius: 5px; box-sizing: border-box; pointer-events: none}
 
     .overlay h3{margin: 0; padding: 0;}
+
+    @media(max-width:768px){
+        .logo, nav{float: none; width: 100%; text-align: center;}
+
+        nav ul, nav li{float: none; padding: 0;}
+
+        nav li{ margin-bottom: 15px;}
+
+        #gallery li{width: 48%; margin-right: 8px;}
+
+    }
+
+    @media(max-width:568px){
+        #gallery li{width: 100%; margin-right: 0;}
+    }
 </style>
 <body>
 
@@ -75,14 +91,14 @@
         <div class="container">
             <h1 id="heading">All Pics</h1>
             <ul id="gallery">
-                <li class="design"><a href="#" data-title="Project-1" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech1.avif" alt=""></a></li>
-                <li class="design"><a href="#" data-title="Project-2" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech2.avif" alt=""></a></li>
-                <li class="products"><a href="#" data-title="Project-3" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech3.avif" alt=""></a></li>
-                <li class="products"><a href="#" data-title="Project-4" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech4.avif" alt=""></a></li>
-                <li class="devops"><a href="#" data-title="Project-5" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech5.avif" alt=""></a></li>
-                <li class="devops"><a href="#" data-title="Project-6" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech6.avif" alt=""></a></li>
-                <li class="tech"><a href="#" data-title="Project-7" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech7.avif" alt=""></a></li>
-                <li class="tech"><a href="#" data-title="Project-8" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech8.avif" alt=""></a></li>
+                <li class="design"><a href="/tech/tech1.avif" data-lightbox="projects" data-title="Project-1" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech1.avif" alt=""></a></li>
+                <li class="design"><a href="/tech/tech2.avif" data-lightbox="projects" data-title="Project-2" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech2.avif" alt=""></a></li>
+                <li class="products"><a href="/tech/tech3.avif" data-lightbox="projects" data-title="Project-3" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech3.avif" alt=""></a></li>
+                <li class="products"><a href="/tech/tech4.avif" data-lightbox="projects" data-title="Project-4" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech4.avif" alt=""></a></li>
+                <li class="devops"><a href="/tech/tech5.avif" data-lightbox="projects" data-title="Project-5" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech5.avif" alt=""></a></li>
+                <li class="devops"><a href="/tech/tech6.avif" data-lightbox="projects" data-title="Project-6" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech6.avif" alt=""></a></li>
+                <li class="tech"><a href="/tech/tech7.avif" data-lightbox="projects" data-title="Project-7" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech7.avif" alt=""></a></li>
+                <li class="tech"><a href="/tech/tech8.avif" data-lightbox="projects" data-title="Project-8" data-desc="Lorem ipsum dolor sit amet, consectetur adipisicing."><img src="/tech/tech8.avif" alt=""></a></li>
             </ul>
         </div>
     </section>
