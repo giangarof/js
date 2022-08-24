@@ -54,10 +54,10 @@
             <h1 class="logo">JQ Gallery</h1>
             <nav>
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Design</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">Contacts</a></li>
+                    <li><a href="#">Tech</a></li>
+                    <li><a href="#">Design</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Devops</a></li>
                 </ul>
             </nav>
         </div>
@@ -73,15 +73,14 @@
         <div class="container">
             <h1 id="heading">All Pics</h1>
             <ul id="gallery">
-                
-                <li><a href="#"><img src="/landscaping/l6.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l7.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
-                <li><a href="#"><img src="/landscaping/l8.jpeg" alt=""></a></li>
+                <li class="design"><a href="#"><img src="/tech/tech1.avif" alt=""></a></li>
+                <li class="design"><a href="#"><img src="/tech/tech2.avif" alt=""></a></li>
+                <li class="products"><a href="#"><img src="/tech/tech3.avif" alt=""></a></li>
+                <li class="products"><a href="#"><img src="/tech/tech4.avif" alt=""></a></li>
+                <li class="devops"><a href="#"><img src="/tech/tech5.avif" alt=""></a></li>
+                <li class="devops"><a href="#"><img src="/tech/tech6.avif" alt=""></a></li>
+                <li class="tech"><a href="#"><img src="/tech/tech7.avif" alt=""></a></li>
+                <li class="tech"><a href="#"><img src="/tech/tech8.avif" alt=""></a></li>
 
             </ul>
         </div>
@@ -90,6 +89,31 @@
     <footer><p>CopyRight 2022 &copy; </p></footer>
 
     <script>
+
+        $(document).ready(function(){
+            $('nav a').on('click', function(){
+                $('nav li.current').removeClass('current')
+                $(this).parent().addClass('current')
+
+                $('h1#heading').text($(this).text());
+
+                let category = $(this).text().toLocaleLowerCase().replace(' ', '-');
+
+                if(category == 'all products'){
+                    $('ul#gallery li:hidden').fadeIn('slow').removeClass('hidden');
+                } else {
+                    $('ul#gallery li').each(function(){
+                        if(!$(this).hasClass(category)){
+                            $(this).hide().addClass('hidden');
+                        } else {
+                            $(this).fadeIn('slow').removeClass('hidden');
+                        }
+                    })
+                }
+                return false;
+
+            })
+        })
 
     </script>
     
