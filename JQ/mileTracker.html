@@ -80,7 +80,7 @@
                 <input type="text" id="addMiles">
 
                 <label for="addDate">Enter Date: </label>
-                <input type="text" data-role="date" class="date" id="date" date-inline="true">
+                <input type="text" data-role="date" class="date" id="addDate" date-inline="true">
 
                 <button id="submitAdd" class="ui-btn ui-btn-b ui-corder-all">Submit</button>
             </form>
@@ -94,6 +94,38 @@
 
 
     <script>
+
+        $(document).one('pageinit', function(){
+            $('#submitAdd').on('tap', addRun);
+
+            function addRun(){
+                let miles = $('#addMiles').val();
+                let date = $('#addDate').val();
+
+                let run = {
+                    date: date,
+                    miles: parseFloat(miles)
+                }
+
+                let runs = getRunsObject();
+                runs.push(run)
+                alert('Run Added')
+                localStorage.setItem('runs', JSON.stringify(runs))
+
+                window.location.href='mileTracker.html'
+                return false
+            }
+
+            function getRunsObject(){
+                let runs = new Array();
+                let currentRuns = localStorage.getItem('runs');
+
+                if(currentRuns != null){
+                    let runs = JSON.parse(currentRuns);
+                }
+                return runs.sort(function(a,b){return new Date(b.date) - new Date(a.date)})
+            }
+        })
 
     </script>
     
