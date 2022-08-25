@@ -25,6 +25,8 @@
 
     .controls{float: right;}
 
+    #stats p{color: red;}
+
 </style>
 <body>
 
@@ -138,6 +140,8 @@
             $('#submitAdd').on('tap', addRun);
             $('#submitEdit').on('tap', editRun);
             $('#stats').on('tap', '#editLink', setCurrent)
+            $('#stats').on('tap', '#deleteLink', deleteRun);
+            $('#clearRuns').on('tap', clearRuns);
 
 
             function showRuns(){
@@ -151,13 +155,16 @@
                             <strong>Distance:</strong>${runs[i]["miles"]}m <br>
                             <div class="controls">
                                 <a href="#edit" id="editLink" data-miles="${runs[i]['miles']}" data-date="${runs[i]['date']}">Edit</a> |
-                                <a href="#">Delete</a>
+                                <a href="#" id="deleteLink" data-miles="${runs[i]['miles']}" data-date="${runs[i]['date']}" onclick="return confirm('Sure?')">Delete</a>
                             </div>
                         </li>`)
                     }
                     $('#home').bind('pageinit', function(){
                         $('#stats').listview('refresh')
                     })
+                } else {
+                    $('#stats').html('<p>No runs registered...</p>')
+
                 }
 
             }
@@ -205,6 +212,33 @@
                 window.location.href='mileTracker.html'
                 return false
             }
+
+            function deleteRun(){
+                localStorage.setItem('currentMiles', $(this).data('miles'))
+                localStorage.setItem('currentDate', $(this).data('date'))
+
+                currentMiles =localStorage.getItem('currentMiles')
+                currentDate =localStorage.getItem('currentDate')
+                var runs = getRunsObject();
+
+                for(var i = 0; i < runs.length; i++){
+                    if(runs[i].miles == currentMiles && runs[i].date == currentDate ){
+                        runs.splice(i,1);
+                    }
+                    localStorage.setItem('runs', JSON.stringify(runs))
+                }
+            
+                alert('Deleted!')
+
+                window.location.href='mileTracker.html'
+                return false
+            }
+
+            function clearRuns(){
+                localStorage.removeItem('runs');
+                $('#stats').html('<p>No runs registered...</p>')
+            }
+
 
             function getRunsObject(){
                 var runs = new Array();
