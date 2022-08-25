@@ -23,6 +23,8 @@
 
     ul{display: block;}
 
+    .controls{float: right;}
+
 </style>
 <body>
 
@@ -96,18 +98,41 @@
     <script>
 
         $(document).one('pageinit', function(){
+            showRuns();
             $('#submitAdd').on('tap', addRun);
 
-            function addRun(){
-                let miles = $('#addMiles').val();
-                let date = $('#addDate').val();
 
-                let run = {
-                    date: date,
-                    miles: parseFloat(miles)
+            function showRuns(){
+                var runs = getRunsObject()
+
+                if(runs != '' && runs != null){
+                    for(var i = 0; i < runs.length; i++){
+                        $('#stats').append(`
+                        <li class="ui-body-inherit ui-li-static">
+                            <strong>Date:</strong>${runs[i]["date"]} <br>
+                            <strong>Distance:</strong>${runs[i]["miles"]}m <br>
+                            <div class="controls">
+                                <a href=#edit>Edit</a> |
+                                <a href=#>Delete</a>
+                            </div>
+                        </li>`)
+                    }
+                    $('#home').bind('pageinit', function(){
+                        $('#stats').listview('refresh')
+                    })
                 }
 
-                let runs = getRunsObject();
+            }
+
+            function addRun(){
+                var miles = $('#addMiles').val();
+                var date = $('#addDate').val();
+
+                var run = {
+                    date: date,
+                    miles: parseFloat(miles),
+                }
+                var runs = getRunsObject();
                 runs.push(run)
                 alert('Run Added')
                 localStorage.setItem('runs', JSON.stringify(runs))
@@ -117,13 +142,16 @@
             }
 
             function getRunsObject(){
-                let runs = new Array();
-                let currentRuns = localStorage.getItem('runs');
+                var runs = new Array();
+                var currentRuns = localStorage.getItem('runs');
 
                 if(currentRuns != null){
-                    let runs = JSON.parse(currentRuns);
+                    var runs = JSON.parse(currentRuns);
                 }
-                return runs.sort(function(a,b){return new Date(b.date) - new Date(a.date)})
+                
+                return runs.sort(function(a,b){
+                    return new Date(b.date) - new Date(a.date)
+                })
             }
         })
 
