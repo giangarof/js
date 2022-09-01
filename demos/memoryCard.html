@@ -7,11 +7,61 @@
     <title>Document</title>
 </head>
 <style>
+    body{
+        background-color: rgb(172, 145, 255, 0.5);
+    }
+
+    header{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .name{
+        margin-left: 1rem;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .box{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+    }
+
+    .inner_container img{
+        width: 100px;
+
+    }
+
 
 </style>
 <body>
 
-    <script></script>
+    <header>
+            <h3>Find the correct character: </h3> <p id="name" class="name">Some name</p>
+    </header>
+
+    <div class="container" id="container">
+        <div class="box">
+            <div class="inner_container"><img src="../imgs/poke/charizard.webp" alt=""></div>
+            <div class="inner_container"><img src="../imgs/poke/entei.png" alt=""></div>
+            <div class="inner_container"><img src="../imgs/poke/jigglypuff.jpeg" alt=""></div>
+            <div class="inner_container"><img src="../imgs/poke/mew.jpeg" alt=""></div>
+            <div class="inner_container"><img src="../imgs/poke/mewtwo.png" alt=""></div>
+            <div class="inner_container"><img src="../imgs/poke/pikachu.png" alt=""></div>
+
+        </div>
+    </div>
+
+    <script>
+
+    </script>
     
 </body>
 </html>
