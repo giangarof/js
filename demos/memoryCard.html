@@ -44,6 +44,10 @@
 
     }
 
+    img {
+        cursor: pointer;
+    }
+
 
 </style>
 <body>
@@ -71,15 +75,44 @@
         })
 
         function start(){
-                let imgs = `
-                    <div class="inner_container"><img src="../imgs/poke/charizard.webp" alt=""></div>
-                    <div class="inner_container"><img src="../imgs/poke/entei.png" alt=""></div>
-                    <div class="inner_container"><img src="../imgs/poke/jigglypuff.jpeg" alt=""></div>
-                    <div class="inner_container"><img src="../imgs/poke/mew.jpeg" alt=""></div>
-                    <div class="inner_container"><img src="../imgs/poke/mewtwo.png" alt=""></div>
-                    <div class="inner_container"><img src="../imgs/poke/pikachu.png" alt=""></div>
-                `
-                document.getElementById('box').innerHTML = imgs
+            //Imgs append 
+            // BOX > INNER_CONTAINER > IMG
+            let imgs = `
+                <div class="inner_container"><img src="../imgs/poke/charizard.webp" data-name="charizard" alt=""></div>
+                <div class="inner_container"><img src="../imgs/poke/entei.png" data-name="entei" alt=""></div>
+                <div class="inner_container"><img src="../imgs/poke/jigglypuff.jpeg" data-name="jigglypuff" alt=""></div>
+                <div class="inner_container"><img src="../imgs/poke/mew.jpeg" data-name="mew" alt=""></div>
+                <div class="inner_container"><img src="../imgs/poke/mewtwo.png" data-name="mewtwo" alt=""></div>
+                <div class="inner_container"><img src="../imgs/poke/pikachu.png" data-name="pikachu" alt=""></div>
+            `
+            document.getElementById('box').innerHTML = imgs
+
+            //Variables for the Dom
+            const pokemons = document.querySelectorAll('[data-name]')
+            const box = document.querySelector('.box')
+            const boxes = document.querySelectorAll('.inner_container')
+            
+            //For loop all data-name 
+            for(let i = 0; i < pokemons.length; i++){
+                var name = pokemons[i].dataset.name;
+                console.log(name)
+                
+            }
+
+            //Make imgs clickable
+            //Dom 
+            box.addEventListener('click', (e) => {
+                e.preventDefault()
+                console.log(e.target.dataset.name)
+                alert(e.target)
+            });
+
+            //to do
+            //Function to random pokemon
+            //function to random img
+            //if img and name are equals, restart game
+
+                
         }
 
 
