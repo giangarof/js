@@ -47,13 +47,10 @@
     img {
         cursor: pointer;
     }
-
-
 </style>
 <body>
 
-    <header>
-            <h3>Find the correct character: </h3> <p id="name" class="name">Some name</p>
+    <header id="header">
     </header>
 
     <div class="container" id="container">
@@ -61,64 +58,78 @@
             <button id="btn">Start</button>
         </div>
         <div class="box" id="box">
-
         </div>
     </div>
 
     <script>
-        let box = document.getElementById('box');
+        
+        const pokemons = [
+            {
+                name: 'charizard',
+                img: '../imgs/poke/charizard.webp'
+            },
+            {
+                name: 'entei',
+                img: '../imgs/poke/entei.png'
+            },
+            {
+                name: 'jigglypuff',
+                img: '../imgs/poke/jigglypuff.jpeg'
+            },
+            {
+                name: 'mew',
+                img: '../imgs/poke/mew.jpeg'
+            },
+            {
+                name: 'mewtwo',
+                img: '../imgs/poke/mewtwo.png'
+            },
+            {
+                name: 'pikachu',
+                img: '../imgs/poke/pikachu.png'
+            },
+        ];
+       
+        const pokeImg = pokemons.map(imgs => imgs.img);
+        const pokeName = pokemons.map(names => names.name);
+        //console.log(pokeName)
+        //console.log(pokeImg)
 
-        let btn = document.getElementById('btn');
-
-        btn.addEventListener('click', () => {
-            start()
-        })
-
-        function start(){
-            //Imgs append 
-            // BOX > INNER_CONTAINER > IMG
-            let imgs = `
-                <div class="inner_container"><img src="../imgs/poke/charizard.webp" data-name="charizard" alt=""></div>
-                <div class="inner_container"><img src="../imgs/poke/entei.png" data-name="entei" alt=""></div>
-                <div class="inner_container"><img src="../imgs/poke/jigglypuff.jpeg" data-name="jigglypuff" alt=""></div>
-                <div class="inner_container"><img src="../imgs/poke/mew.jpeg" data-name="mew" alt=""></div>
-                <div class="inner_container"><img src="../imgs/poke/mewtwo.png" data-name="mewtwo" alt=""></div>
-                <div class="inner_container"><img src="../imgs/poke/pikachu.png" data-name="pikachu" alt=""></div>
-            `
-            document.getElementById('box').innerHTML = imgs
-
-            //Variables for the Dom
-            const pokemons = document.querySelectorAll('[data-name]')
-            const box = document.querySelector('.box')
-            const boxes = document.querySelectorAll('.inner_container')
-            
-            //For loop all data-name 
-            for(let i = 0; i < pokemons.length; i++){
-                var name = pokemons[i].dataset.name;
-                console.log(name)
-                
-            }
-
-            //Make imgs clickable
-            //Dom 
-            box.addEventListener('click', (e) => {
-                e.preventDefault()
-                console.log(e.target.dataset.name)
-                alert(e.target)
-            });
-
-            //to do
-            //Function to random pokemon
-            //function to random img
-            //if img and name are equals, restart game
-
-                
+        function init(){
+            display()
         }
 
+        //Event to start
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', () => {
+            init()
+        });
 
-        
-        
+        //display board and name
+        function display(){
+            let box = document.getElementById('box');
+            let header = document.getElementById('header')
+            let title = `<h3>Find the correct character: </h3> <p id="name" class="name"> ${randomName()} </p>`;
+            
+            for(let i = 0; i < pokeImg.length; i++){
+                let img = `<div class="inner_container" id="inner_container"><img src="${randomImg()}" alt=""></div>`
+                //console.log(pokeImg[i])
+                document.getElementById('box').innerHTML += img
+            }
+            
+            document.getElementById('header').innerHTML = title;
+        }
 
+        //Generate random name
+        function randomName(){
+            return pokeName[Math.floor(Math.random() * pokeName.length)]
+        }
+        
+        //random images
+        function randomImg(){
+            return pokeImg[Math.floor(Math.random() * pokeImg.length)]
+        }
+        
     </script>
     
 </body>
