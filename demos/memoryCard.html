@@ -94,49 +94,38 @@
         const pokeImg = pokemons.map(imgs => imgs.img);
         const pokeName = pokemons.map(names => names.name);
 
-        //Event to start
+        //start the game
         btn.addEventListener('click', () => {
-            init()
+            display()
         });
 
-        function init(){
-            display()
-        }
-
-        //display board and name
+        //display board 
         function display(){
-            let box = document.getElementById('box');
-            let header = document.getElementById('header')
-            let title = `<h3>Find the correct character: </h3> <p id="name" class="name"> ${randomName()} </p>`;
-            
-            for(let i = 0; i < pokeImg.length; i++){
-                let img = `<div class="inner_container" id="inner_container"><img src="${randomImg()}" alt=""></div>`
-                //console.log(pokeImg[i])
-                document.getElementById('box').innerHTML += img
-            }
-            
+            randomName()
+            randomImg()
+            // for(let i = 0; i < pokeImg.length;i++){
+            //     let img = `<div class="inner_container" id="inner_container"><img src="${randomImg()}" alt=""></div>`;
+            //     document.getElementById('box').innerHTML += img
+                
+            // }
+        }
+        
+        //Generate ONE random name
+        function randomName(){
+            let random = pokeName[Math.floor(Math.random() * pokeName.length)]
+            let title = `<h3>Find the correct character: </h3> <p id="name" class="name"> ${random} </p>`;
             document.getElementById('header').innerHTML = title;
         }
-
-        //Generate random name
-        function randomName(){
-            return pokeName[Math.floor(Math.random() * pokeName.length)]
-        }
-
-        //random images
+        
+        //random images in one array
         function randomImg(){
-            
-            return pokeImg[Math.floor(Math.random() * pokeImg.length)];
-            // for(let i = 0; i < pokeImg.length; i++){
-            //     let randomN = Math.floor(Math.random()*pokeImg.length);
-            //     let temp = "";
-            //     let current = pokeImg[i];
-            //     let random = pokeImg[randomN];
-            //     temp = current;
-            //     pokeImg[i] = random;
-            //     pokeImg[randomN] = temp;
-            //     console.log(pokeImg)
-            // }
+            let box = document.getElementById('box');
+            var arr = [];
+            arr = pokeImg.slice()
+            arr.sort(function(a,b){
+                return 0.5 - Math.random()
+            })
+
         }
         
         
