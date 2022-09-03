@@ -87,23 +87,21 @@
             {
                 name: 'pikachu',
                 img: '../imgs/poke/pikachu.png'
-            },
+            }
         ];
        
+        const btn = document.getElementById('btn');
         const pokeImg = pokemons.map(imgs => imgs.img);
         const pokeName = pokemons.map(names => names.name);
-        //console.log(pokeName)
-        //console.log(pokeImg)
+
+        //Event to start
+        btn.addEventListener('click', () => {
+            init()
+        });
 
         function init(){
             display()
         }
-
-        //Event to start
-        const btn = document.getElementById('btn');
-        btn.addEventListener('click', () => {
-            init()
-        });
 
         //display board and name
         function display(){
@@ -124,11 +122,23 @@
         function randomName(){
             return pokeName[Math.floor(Math.random() * pokeName.length)]
         }
-        
+
         //random images
         function randomImg(){
-            return pokeImg[Math.floor(Math.random() * pokeImg.length)]
+            
+            return pokeImg[Math.floor(Math.random() * pokeImg.length)];
+            // for(let i = 0; i < pokeImg.length; i++){
+            //     let randomN = Math.floor(Math.random()*pokeImg.length);
+            //     let temp = "";
+            //     let current = pokeImg[i];
+            //     let random = pokeImg[randomN];
+            //     temp = current;
+            //     pokeImg[i] = random;
+            //     pokeImg[randomN] = temp;
+            //     console.log(pokeImg)
+            // }
         }
+        
         
     </script>
     
