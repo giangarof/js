@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(172, 145, 255, 0.5);
+    }
+
+    header{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    button{
+        text-align: center;
+    }
+
+    .name{
+        margin-left: 1rem;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+    }
+
+    .inner_container img{
+        width: 100px;
+
+    }
+
+    img {
+        cursor: pointer;
+    }
+</style>
+<body>
+
+    <header id="header">
+    </header>
+
+    <div class="container" id="container">
+        <div>
+            <button id="btn">Start</button>
+        </div>
+        <div class="box" id="box">
+        </div>
+    </div>
+
+    <script>
+        
+        const pokemons = [
+            {
+                name: 'charizard',
+                img: '../imgs/poke/charizard.webp'
+            },
+            {
+                name: 'entei',
+                img: '../imgs/poke/entei.png'
+            },
+            {
+                name: 'jigglypuff',
+                img: '../imgs/poke/jigglypuff.jpeg'
+            },
+            {
+                name: 'mew',
+                img: '../imgs/poke/mew.jpeg'
+            },
+            {
+                name: 'mewtwo',
+                img: '../imgs/poke/mewtwo.png'
+            },
+            {
+                name: 'pikachu',
+                img: '../imgs/poke/pikachu.png'
+            }
+        ];
+       
+        const btn = document.getElementById('btn');
+        const pokeImg = pokemons.map(imgs => imgs.img);
+        const pokeName = pokemons.map(names => names.name);
+
+        //start the game
+        btn.addEventListener('click', () => {
+            display()
+        });
+
+        //display board 
+        function display(){
+            randomName()
+            randomImg()
+            // for(let i = 0; i < pokeImg.length;i++){
+            //     let img = `<div class="inner_container" id="inner_container"><img src="${randomImg()}" alt=""></div>`;
+            //     document.getElementById('box').innerHTML += img
+                
+            // }
+        }
+        
+        //Generate ONE random name
+        function randomName(){
+            let random = pokeName[Math.floor(Math.random() * pokeName.length)]
+            let title = `<h3>Find the correct character: </h3> <p id="name" class="name"> ${random} </p>`;
+            document.getElementById('header').innerHTML = title;
+        }
+        
+        //random images in one array
+        function randomImg(){
+            let box = document.getElementById('box');
+            var arr = [];
+            arr = pokeImg.slice()
+            arr.sort(function(a,b){
+                return 0.5 - Math.random()
+            })
+
+        }
+        
+        
+    </script>
+    
+</body>
+</html>
