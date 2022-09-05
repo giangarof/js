@@ -12,6 +12,15 @@
 
     <script>
 
+        //shuffle
+        var x = ['a','b','c','d'];
+        var y = [];
+        y = x.slice()
+        y.sort(function(a,b){
+            return 0.5 - Math.random()
+        })
+        console.log(y)
+
 
         //repeat div
         var container = document.getElementById('container')
