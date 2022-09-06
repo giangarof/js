@@ -24,11 +24,19 @@
 
         //repeat div
         var container = document.getElementById('container')
-        var arr= 6;
+        var arr = 4;
 
+        //display arr
+        // for(var i = 0; i < arr; i++){
+        //     var div = `<div id='box'>${i}</div>`;
+        //     container.innerHTML += div
 
-        for(var i = 0; i < arr; i++){
-            var div = `<div id='box'>${i}</div>`;
+        // }
+
+        //display the shuffle array
+        //Use for Guess the pokemon project
+        for(var i = 0; i < x.length; i++){
+            var div = `<div id='box'>${y[i]}</div>`;
             container.innerHTML += div
 
         }
