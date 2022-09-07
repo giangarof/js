@@ -11,6 +11,24 @@
     <div id="container"></div>
 
     <script>
+        //mapping array of objects
+        var names = [
+            {
+                img: './imgs/d1.jpeg'
+            },
+            {
+                img: './imgs/d2.jpeg'
+            },
+            {
+                img: './imgs/d3.jpeg'
+            },
+            {
+                img: './imgs/d4.jpeg'
+            },
+        ]
+        var imgName = names.map(el => el.img);
+        console.log(imgName)
+        
 
         //shuffle
         var x = ['a','b','c','d'];
@@ -19,7 +37,7 @@
         y.sort(function(a,b){
             return 0.5 - Math.random()
         })
-        console.log(y)
+        //console.log(y)
 
 
         //repeat div
