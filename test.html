@@ -6,11 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #container{
+        display: flex;
+        justify-content: center;
+        
+    }
+    #box{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 10px;
+        
+    }
+    img{
+        width: 200px;
+        height: 200px;
+    }
+</style>
 <body>
 
     <div id="container"></div>
 
     <script>
+        var container = document.getElementById('container')
+
         var names = [
             {
                 img: './imgs/d1.jpeg'
@@ -34,7 +58,15 @@
         //slice images into empty array, then randomize
         arr = imgName.slice()
         arr.sort(function(a,b){return 0.5 - Math.random()})
+        //console.log(arr)
         
+        //loop the array inside a img tag, which is attached into a div
+        for(let i = 0; i < arr.length; i++){
+            var div = `<div id='box'><img src='${arr[i]}'/></div>`
+            container.innerHTML += div
+        }
+
+
         
         
 
@@ -49,7 +81,7 @@
 
 
         //repeat div
-        var container = document.getElementById('container')
+        //var container = document.getElementById('container')
         var arr = 4;
 
         //display arr
@@ -63,7 +95,7 @@
         //Use for Guess the pokemon project
         for(var i = 0; i < x.length; i++){
             var div = `<div id='box'>${y[i]}</div>`;
-            container.innerHTML += div
+            //container.innerHTML += div
 
         }
 
