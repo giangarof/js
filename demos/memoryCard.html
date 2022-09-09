@@ -83,8 +83,9 @@
         ];
        
         const btn = document.getElementById('btn');
-        const pokeImg = pokemons.map(imgs => imgs.img);
-        const pokeName = pokemons.map(names => names.name);        
+        //const pokeImg = pokemons.map(imgs => imgs.img);
+        const pokeName = pokemons.map(names => names.name);
+
         
         //start the game
         btn.addEventListener('click', () => {start()});
@@ -114,20 +115,26 @@
             })
             //loop each item
             arr.forEach(item => {
-
                 let name = item.name;
                 let img = item.img;
-                console.log(img,name)
+                //console.log(img,name)
                 let div = `
                         <div id="inner_box"> 
-                            <img id="img" class='img' src="${img}" data-name="${name}"/> 
+                            <img id="img" class='img' src="${img}" data-name="${name}" onclick="match(this)" /> 
                         </div>
                         `
-                    box.innerHTML += div
-                }
+                    box.innerHTML += div;
+                } 
             )
-
         }
+
+        function match(e){
+            let dataName = e.getAttribute('data-name')
+            console.log(dataName)
+        }
+
+        
+
         
         
     </script>
