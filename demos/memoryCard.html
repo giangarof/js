@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <style>
+    *{
+        padding: 0; margin: 0;
+    }
+
     body{
         background-color: rgb(172, 145, 255, 0.5);
     }
@@ -15,15 +19,8 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
-    }
-
-    button{
-        text-align: center;
-    }
-
-    .name{
-        margin-left: 1rem;
+        padding-top: 20px;
+        
     }
 
     .container{
@@ -31,27 +28,22 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 100%;
     }
 
-    .box{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 20px;
-    }
+    button{text-align: center;}
 
-    .inner_container img{
-        width: 100px;
+    .name{margin-left: 1rem;}
 
-    }
+    .box{ display: grid; grid-template-columns: repeat(3,2fr);}
 
-    img {
-        cursor: pointer;
-    }
+    img{ width: 200px; height: 200px; padding: 10px; cursor: pointer;}
+
+    
 </style>
 <body>
 
-    <header id="header">
-    </header>
+    <header id="header"></header>
 
     <div class="container" id="container">
         <div>
@@ -92,22 +84,15 @@
        
         const btn = document.getElementById('btn');
         const pokeImg = pokemons.map(imgs => imgs.img);
-        const pokeName = pokemons.map(names => names.name);
-
+        const pokeName = pokemons.map(names => names.name);        
+        
         //start the game
-        btn.addEventListener('click', () => {
-            display()
-        });
+        btn.addEventListener('click', () => {start()});
 
         //display board 
-        function display(){
+        function start(){
             randomName()
             randomImg()
-            // for(let i = 0; i < pokeImg.length;i++){
-            //     let img = `<div class="inner_container" id="inner_container"><img src="${randomImg()}" alt=""></div>`;
-            //     document.getElementById('box').innerHTML += img
-                
-            // }
         }
         
         //Generate ONE random name
@@ -117,14 +102,30 @@
             document.getElementById('header').innerHTML = title;
         }
         
-        //random images in one array
+        //map images
         function randomImg(){
             let box = document.getElementById('box');
-            var arr = [];
-            arr = pokeImg.slice()
+
+            //randomize pokemons array
+            let arr = [];
+            arr = pokemons.slice()
             arr.sort(function(a,b){
                 return 0.5 - Math.random()
             })
+            //loop each item
+            arr.forEach(item => {
+
+                let name = item.name;
+                let img = item.img;
+                console.log(img,name)
+                let div = `
+                        <div id="inner_box"> 
+                            <img id="img" class='img' src="${img}" data-name="${name}"/> 
+                        </div>
+                        `
+                    box.innerHTML += div
+                }
+            )
 
         }
         
