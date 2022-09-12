@@ -39,6 +39,10 @@
 
     img{ width: 200px; height: 200px; padding: 10px; cursor: pointer;}
 
+    .hide{ display: none; }
+
+    .title{text-align: center;}
+
     
 </style>
 <body>
@@ -47,14 +51,15 @@
 
     <div class="container" id="container">
         <div>
-            <button id="btn">Start</button>
+            <button id="btn" onclick="start()">Start</button>
         </div>
         <div class="box" id="box">
+            
         </div>
     </div>
 
     <script>
-        
+
         const pokemons = [
             {
                 name: 'charizard',
@@ -85,57 +90,82 @@
         const btn = document.getElementById('btn');
         //const pokeImg = pokemons.map(imgs => imgs.img);
         const pokeName = pokemons.map(names => names.name);
+    
+        //key
+        let random;
 
-        
-        //start the game
-        btn.addEventListener('click', () => {start()});
-
-        //display board 
         function start(){
+            //randomize pokemons array
             randomName()
             randomImg()
+            btn.textContent = 'Shuffle again';
         }
         
         //Generate ONE random name
         function randomName(){
-            let random = pokeName[Math.floor(Math.random() * pokeName.length)]
-            let title = `<h3>Find the correct character: </h3> <p id="name" class="name"> ${random} </p>`;
+            random = pokeName[Math.floor(Math.random() * pokeName.length)]
+            let title = `
+                        <div class='title'>
+                            <h3>Find the correct character: </h3> <p id="name" class="name"> ${random} </p>
+                            <p id='msg'></p>
+                        </div>
+                        `;
             document.getElementById('header').innerHTML = title;
+            
+            //console.log(random)
+            
         }
         
         //map images
         function randomImg(){
-            let box = document.getElementById('box');
-
-            //randomize pokemons array
+            let html = ''
             let arr = [];
             arr = pokemons.slice()
             arr.sort(function(a,b){
                 return 0.5 - Math.random()
             })
-            //loop each item
-            arr.forEach(item => {
+            for(let i = 0; i < arr.length; i++){
+                let item = arr[i];
                 let name = item.name;
                 let img = item.img;
-                //console.log(img,name)
-                let div = `
-                        <div id="inner_box"> 
-                            <img id="img" class='img' src="${img}" data-name="${name}" onclick="match(this)" /> 
-                        </div>
+                html += `
+                         <div id="inner_box"> 
+                             <img id="img" class='img' src="${img}" data-name="${name}" onclick="match(this)" /> 
+                         </div>
                         `
-                    box.innerHTML += div;
-                } 
-            )
+                     document.getElementById('box').innerHTML = html;
+            }
+            // arr.forEach(item => {
+            //     let name = item.name;
+            //     let img = item.img;
+            //     //console.log(img,name)
+            //     let div = `
+            //             <div id="inner_box"> 
+            //                 <img id="img" class='img' src="${img}" data-name="${name}" onclick="match(this)" /> 
+            //             </div>
+            //             `
+            //         box.innerHTML += div;
+            //     } 
+            // )
         }
 
         function match(e){
-            let dataName = e.getAttribute('data-name')
-            console.log(dataName)
+            //console.log(e)
+            var dataName = e.getAttribute('data-name')
+            var msg = document.getElementById('msg')
+            var img = document.getElementById('img')
+            
+            if(dataName === random){
+                msg.textContent = 'Correct'
+                
+                //start()
+            } else{
+                //img.classList.add('hide')
+                e.parentNode.removeChild(e)
+                msg.textContent = 'Try Again!'
+            }
+
         }
-
-        
-
-        
         
     </script>
     
