@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+
+    <form id="form">
+        <select name="" id="select">
+
+        </select>
+        <input type="text" placeholder="From" id="from">
+        <input type="text" placeholder="To" id="to">
+        <input type="text" placeholder="Currency" id="qty">
+        <button id="btn">Get</button>
+    </form>
+
+    <script>
+        const select = document.getElementById('select')
+        const form = document.getElementById('form')
+        const from = document.getElementById('from');
+        const to = document.getElementById('to');
+        const qty = document.getElementById('qty');
+        
+        
+        //key aOGAFsh88FalSQhP8CNBlSO0FlxmzwNd
+        //url https://api.apilayer.com/currency_data/list
+        
+        let head = new Headers();
+        head.append('apikey', 'aOGAFsh88FalSQhP8CNBlSO0FlxmzwNd')
+        
+        let req = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: head
+        }
+        
+        //fetch("https://api.apilayer.com/currency_data/convert?to=" + to + "&from="+ from + "&amount=" + qty, req)
+        fetch('https://api.apilayer.com/currency_data/list',req)
+            .then(res => {return res.json()})
+            .then(result => data(result.currencies))
+            .catch(err => console.log(err))
+
+        const data = (data) => {
+            for(curr in data ){
+                const currencies = curr
+                const opt = document.createElement('option');
+                opt.append(currencies)
+                console.log(opt)
+                //opt.appendChild(select)
+            }
+        }
+    
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log(from.value);
+            console.log(to.value);
+            console.log(qty.value);
+            
+        })
+
+    </script>
+    
+</body>
+</html>
