@@ -12,59 +12,115 @@
 <body>
 
     <form id="form">
-        <select name="" id="select">
-
+        <p>From</p>
+        <select name="" id="select1">
+            <option>Select</option>
         </select>
-        <input type="text" placeholder="From" id="from">
-        <input type="text" placeholder="To" id="to">
-        <input type="text" placeholder="Currency" id="qty">
+
+        <p>To</p>
+        <select name="" id="select2" onchange="choice(this)">
+            <option>Select</option>
+        </select>
+
+        <div id="value"></div>
+        <p>Select quantity</p>
+        <input type="text" placeholder="QTY" id="qty">
+
         <button id="btn">Get</button>
     </form>
 
+    <div id="cal"></div>
+
     <script>
-        const select = document.getElementById('select')
         const form = document.getElementById('form')
-        const from = document.getElementById('from');
-        const to = document.getElementById('to');
+        const select1 = document.getElementById('select1')
+        const select2 = document.getElementById('select2')
         const qty = document.getElementById('qty');
-        
-        
-        //key aOGAFsh88FalSQhP8CNBlSO0FlxmzwNd
-        //url https://api.apilayer.com/currency_data/list
+        const val = document.getElementById('value');
+        const cal = document.getElementById('cal');
+
+        //use this
+            //key 8c3ef91b1814875353fb7bfe
+            //url https://v6.exchangerate-api.com/v6/8c3ef91b1814875353fb7bfe/latest/USD
         
         let head = new Headers();
-        head.append('apikey', 'aOGAFsh88FalSQhP8CNBlSO0FlxmzwNd')
+        head.append('X-RapidAPI-Key', '26f3698b09msh862cb12b064b263p1f7c43jsn48e5d2371533')
         
+        let url = 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD'
         let req = {
             method: 'GET',
-            redirect: 'follow',
             headers: head
         }
         
-        //fetch("https://api.apilayer.com/currency_data/convert?to=" + to + "&from="+ from + "&amount=" + qty, req)
-        fetch('https://api.apilayer.com/currency_data/list',req)
+        fetch(url, req)
             .then(res => {return res.json()})
-            .then(result => data(result.currencies))
+            .then(result => data(result.rates))
             .catch(err => console.log(err))
-
+        
         const data = (data) => {
+            //Select1
             for(curr in data ){
                 const currencies = curr
                 const opt = document.createElement('option');
                 opt.append(currencies)
-                console.log(opt)
-                //opt.appendChild(select)
+                select1.appendChild(opt)
             }
+            //Select2
+            for(curr in data){
+                
+                const currencies = curr;
+                const money = data[curr];
+
+                const opt = document.createElement('option');
+                opt.value = money
+                //console.log(opt.value)
+                opt.id = money
+                
+                opt.append(currencies);
+                select2.appendChild(opt);
+                
+            }
+
         }
+        
+
+        function choice(select) {
+            let opt = select.options;
+            let id = parseFloat(opt[opt.selectedIndex].id);
+            //let val = opt[opt.selectedIndex].val;
+            //let val = parseFloat(opt[opt.selectedIndex].value);
+            //console.log(typeof(parseFloat(id)))
+            value.innerHTML = id
+        }
+        
     
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log(from.value);
-            console.log(to.value);
-            console.log(qty.value);
+            const from = select1.value
+            const to = parseFloat(val.innerText)
+            const quantity = qty.value
+            
+            const total = (quantity, to) => {
+                return quantity * to
+            }
+
+            console.log('from:'+from)
+            console.log('to:'+to)
+            console.log('ammount:'+quantity)
+            
+            // const toChange = () => {
+            //     console.log(to)
+            // }
+            // toChange()
+
+            cal.innerHTML = `
+
+                The Exchange from ${from} - ${quantity}$ <br> to ${to} is : <br>
+                ${total(quantity,to)}
+
+            `
             
         })
-
     </script>
     
 </body>
