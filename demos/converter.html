@@ -8,28 +8,90 @@
 </head>
 <style>
 
+    *{margin: 0; padding: 0;}
+    
+    main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 70vh;
+        width: 100%;
+    }
+
+    form{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+    section{
+        width: 300px; border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background-color: rgb(132, 140, 182);
+    }
+
+    .box{
+        display: flex; 
+        flex-direction: column;
+        align-content: center;
+        width: 50%;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    select, input{
+        margin: 5px; padding: 5px;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+    }
+
+    button{
+        outline: none; border: none;
+        font-weight: 500;
+        letter-spacing: 1.2px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+
+    .total{
+        color: gold;
+        font-size: 20px;
+    }
+
+
 </style>
 <body>
+    <main>
+        <form id="form">
+            <section>
+                <p>From</p>
+                <div class="box">
+                    <select name="" id="select1">
+                        <option>Select</option>
+                    </select>
+            
+                    <p>To</p>
+                    <select name="" id="select2" onchange="choice(this)">
+                        <option>Select</option>
+                    </select>
+            
+                    <div id="value"></div>
+                    <p>Select quantity</p>
+                    <input type="text" placeholder="QTY" id="qty">
+            
+                    <button id="btn">Get</button>
+                </div>
+                <div id="cal"></div>
+            </section>
+        </form>
 
-    <form id="form">
-        <p>From</p>
-        <select name="" id="select1">
-            <option>Select</option>
-        </select>
+    </main>
 
-        <p>To</p>
-        <select name="" id="select2" onchange="choice(this)">
-            <option>Select</option>
-        </select>
-
-        <div id="value"></div>
-        <p>Select quantity</p>
-        <input type="text" placeholder="QTY" id="qty">
-
-        <button id="btn">Get</button>
-    </form>
-
-    <div id="cal"></div>
 
     <script>
         const form = document.getElementById('form')
@@ -115,8 +177,8 @@
 
             cal.innerHTML = `
 
-                The Exchange from ${from} - ${quantity}$ <br> to ${to} is : <br>
-                ${total(quantity,to)}
+                The Exchange from ${from} - ${quantity}$ <br> To ${to} is : <br>
+                <p class="total"> ${total(quantity,to)} $ </p>
 
             `
             
