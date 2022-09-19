@@ -20,23 +20,28 @@
 
     form{
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
     }
 
     section{
-        width: 300px; border-radius: 8px;
-        padding: 20px;
-        text-align: center;
+        display: flex; flex-direction: column;
         background-color: rgb(132, 140, 182);
+        width: 300px; border-radius: 8px;
+        padding: 10px; text-align: center;
+
+    }
+
+    .top{
+        display: flex; flex-direction: row; justify-content: space-around;
     }
 
     .box{
         display: flex; 
         flex-direction: column;
         align-content: center;
-        width: 50%;
+        width: 100%;
         margin: 0 auto;
         padding: 10px;
     }
@@ -49,44 +54,65 @@
         text-align: center;
     }
 
+    #qty{
+        background-color: rgb(204, 200, 209, 0.5);
+    }
+
     button{
-        outline: none; border: none;
+        outline: none; border: none; cursor: pointer;
         font-weight: 500;
         letter-spacing: 1.2px;
-        padding: 5px;
-        margin: 5px;
+        padding: 5px; margin: 5px;
         border-radius: 5px;
+        width: 50%;
     }
+
+    .cal{font-size: 20px;}
+
+    #value{display: flex; flex-direction: row; justify-content: space-around;}
 
     .total{
         color: gold;
         font-size: 20px;
+        margin-top: 1rem;
     }
 
+    .inner_box{
+        
+        
+    }
+    
 
 </style>
 <body>
     <main>
         <form id="form">
             <section>
-                <p>From</p>
-                <div class="box">
-                    <select name="" id="select1">
-                        <option>Select</option>
-                    </select>
-            
-                    <p>To</p>
-                    <select name="" id="select2" onchange="choice(this)">
-                        <option>Select</option>
-                    </select>
-            
-                    <div id="value"></div>
-                    <p>Select quantity</p>
-                    <input type="text" placeholder="QTY" id="qty">
-            
+                <div class="top">
+                    <div class="left">
+                        <p>From</p>
+                        <div class="box">
+                            <select name="" id="select1">
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <p>To</p>
+                        <div class="box">
+                            <select name="" id="select2" onchange="choice(this)">
+                                <option>Select</option>
+                            </select>
+                            <div id="value"></div>
+                            <input type="text" placeholder="Select Amount" id="qty">
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="inner_box">
+                    <div id="cal"></div>
                     <button id="btn">Get</button>
                 </div>
-                <div id="cal"></div>
             </section>
         </form>
 
@@ -135,8 +161,7 @@
 
                 const opt = document.createElement('option');
                 opt.value = money
-                //console.log(opt.value)
-                opt.id = money
+                opt.id = currencies
                 
                 opt.append(currencies);
                 select2.appendChild(opt);
@@ -148,17 +173,22 @@
 
         function choice(select) {
             let opt = select.options;
-            let id = parseFloat(opt[opt.selectedIndex].id);
+            let id = opt[opt.selectedIndex].id
+            let valueMoney = parseFloat(opt[opt.selectedIndex].value);
             //let val = opt[opt.selectedIndex].val;
             //let val = parseFloat(opt[opt.selectedIndex].value);
             //console.log(typeof(parseFloat(id)))
-            value.innerHTML = id
+            value.innerHTML = `${valueMoney} <p id="idMoney"> ${id} </p>`
+            //console.log(valueMoney, id)
+            
         }
         
     
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            
             const from = select1.value
+            const s2 = document.getElementById('idMoney').innerText;
             const to = parseFloat(val.innerText)
             const quantity = qty.value
             
@@ -166,18 +196,21 @@
                 return quantity * to
             }
 
-            console.log('from:'+from)
-            console.log('to:'+to)
-            console.log('ammount:'+quantity)
+            // console.log('from:'+from)
+            // console.log('to:'+to)
+            // console.log('ammount:'+quantity)
+            console.log(s2)
             
-            // const toChange = () => {
-            //     console.log(to)
-            // }
-            // toChange()
+            const toChange = () => {
+                
+            }
+            toChange()
+            
+            
 
             cal.innerHTML = `
 
-                The Exchange from ${from} - ${quantity}$ <br> To ${to} is : <br>
+                The Exchange from ${from} - ${quantity}$ <br> To ${to} - ${s2} is : <br>
                 <p class="total"> ${total(quantity,to)} $ </p>
 
             `
