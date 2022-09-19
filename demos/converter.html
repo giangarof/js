@@ -87,7 +87,7 @@
                     <div class="left">
                         <p>From</p>
                         <div class="box">
-                            <select name="" id="select1">
+                            <select name="" id="select1" onchange="choice1(this)">
                                 <option>Select</option>
                             </select>
                         </div>
@@ -122,9 +122,6 @@
         const val = document.getElementById('value');
         const cal = document.getElementById('cal');
 
-        let x = 100000;
-        
-
         //use this
             //key 8c3ef91b1814875353fb7bfe
             //url https://v6.exchangerate-api.com/v6/8c3ef91b1814875353fb7bfe/latest/USD
@@ -146,10 +143,13 @@
         const data = (data) => {
             //Select1
             for(curr in data ){
-                const currencies = curr
+                const currencies = curr;
+                const money = data[curr];
                 const opt = document.createElement('option');
-                opt.append(currencies)
+                opt.append(currencies);
                 select1.appendChild(opt)
+                opt.value = money;
+                opt.id = currencies;
             }
             //Select2
             for(curr in data){
@@ -166,48 +166,41 @@
                 
             }
 
-        }
+        }      
         
+        function choice1(select){
+            let opt = select.options;
+            let id = opt[opt.selectedIndex].id
+            let value = opt[opt.selectedIndex].value            
+            //console.log(id)
+            
+        }
 
         function choice(select) {
             let opt = select.options;
             let id = opt[opt.selectedIndex].id
             let valueMoney = parseFloat(opt[opt.selectedIndex].value);
             let x = (Math.round(valueMoney * 100) / 100).toFixed(2)
-            //let val = opt[opt.selectedIndex].val;
-            //let val = parseFloat(opt[opt.selectedIndex].value);
-            //console.log(typeof(parseFloat(id)))
+            
             value.innerHTML = `${x} <p id="idMoney"> ${id} </p>`
             //console.log(valueMoney, id)
-            console.log(x)
+            //console.log(x)
             
         }
         
     
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const from = select1.value
+        
+            const from = select1.value;
             const s2 = document.getElementById('idMoney').innerText;
-            const to = parseFloat(val.innerText)
-            const quantity = qty.value
-            
+            const to = parseFloat(val.innerText);
+            const quantity = qty.value;
+            console.log(from)
             const total = (quantity, to) => {
                 return quantity * to
             }
-
-            // console.log('from:'+from)
-            // console.log('to:'+to)
-            // console.log('ammount:'+quantity)
-            console.log(s2)
             
-            const toChange = () => {
-                
-            }
-            toChange()
-            
-            
-
             cal.innerHTML = `
 
                 The Exchange from ${from} - ${quantity}$ <br> To ${to} - ${s2} is : <br>
@@ -216,6 +209,7 @@
             `
             
         })
+
     </script>
     
 </body>
