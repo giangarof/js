@@ -76,11 +76,6 @@
         font-size: 20px;
         margin-top: 1rem;
     }
-
-    .inner_box{
-        
-        
-    }
     
 
 </style>
@@ -126,6 +121,9 @@
         const qty = document.getElementById('qty');
         const val = document.getElementById('value');
         const cal = document.getElementById('cal');
+
+        let x = 100000;
+        
 
         //use this
             //key 8c3ef91b1814875353fb7bfe
@@ -175,11 +173,13 @@
             let opt = select.options;
             let id = opt[opt.selectedIndex].id
             let valueMoney = parseFloat(opt[opt.selectedIndex].value);
+            let x = (Math.round(valueMoney * 100) / 100).toFixed(2)
             //let val = opt[opt.selectedIndex].val;
             //let val = parseFloat(opt[opt.selectedIndex].value);
             //console.log(typeof(parseFloat(id)))
-            value.innerHTML = `${valueMoney} <p id="idMoney"> ${id} </p>`
+            value.innerHTML = `${x} <p id="idMoney"> ${id} </p>`
             //console.log(valueMoney, id)
+            console.log(x)
             
         }
         
@@ -211,7 +211,7 @@
             cal.innerHTML = `
 
                 The Exchange from ${from} - ${quantity}$ <br> To ${to} - ${s2} is : <br>
-                <p class="total"> ${total(quantity,to)} $ </p>
+                <p class="total"> ${total(quantity,to).toFixed(2)} $ </p>
 
             `
             
