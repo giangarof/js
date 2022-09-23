@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(205, 156, 250,0.5);
+    }
+    main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 10rem;
+        
+    }
+    .inner{
+        width: 20%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 25px;
+        
+        padding: 20px;
+    }
+
+    #win{
+        font-size: 40px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        margin-top: 1rem;
+        color: rgb(235, 235, 128);
+        cursor: pointer;
+    }
+
+    #zero{
+        margin: 0 auto;
+    }
+
+    #btn{
+        border-radius: 10px;
+        border: none;
+        padding: 18px;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        background-color: rgb(95, 211, 172,0.5);
+        cursor: pointer;
+    }
+
+    #left{
+        font-size: 20px;
+    }
+
+</style>
+<body>
+
+    <main class="jackpot">
+        <div>
+            <span id="left"></span>
+        </div>
+        <div class="inner" id="inner">
+            <span id="zero"></span>
+        </div>
+        <button id="btn">Play!</button>
+        <div id="win"></div>
+    </main>
+
+    <script>
+        let start = 100;
+        const zero = document.getElementById('zero');
+        const left = document.getElementById('left');
+        const win = document.getElementById('win');
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', play)
+
+        function play(){
+            match()
+            spend()
+            btn.innerText='Keep Playing!'
+            
+        }
+
+        const spend = () => {
+            const btn = document.getElementById('btn');
+            left.innerHTML = `Left to spend ${start}$`;
+            start -= 5
+            if(start === -5){
+                alert('game over!')
+                btn.disabled = true
+                btn.innerText='Game over'
+            }
+        }
+        
+        const match = () => {
+            let html = '';
+            const numbers = ['1','2','3','4','5','6','7','8','9'];
+            const x = numbers[Math.floor(Math.random() * numbers.length)]
+            const y = numbers[Math.floor(Math.random() * numbers.length)]
+            const z = numbers[Math.floor(Math.random() * numbers.length)]
+            html += `${x} ${y} ${z}`
+            console.log(html)
+            zero.innerHTML = html;
+            
+            if(x == y && x == z & y ==z){
+                start += 50;
+                win.innerHTML='win'
+                win.style.display = 'block'
+                hide()
+            } 
+            if(x === '7' && y === '7' && z === '7'){
+                win.innerHTML='Jackpot'
+                if(win.innerHTML='Jackpot'){
+                    win.style.color='green'
+                    win.style.display = 'block'
+                }
+                hide()
+                start += 200
+            }
+        }
+        
+        const hide = () => {
+            setTimeout(function(){
+                win.style.display = 'none'
+            }, 1500)
+        }
+        
+        
+        
+
+    </script>
+    
+</body>
+</html>
