@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+    .container{
+        display: flex; flex-direction: column; align-items: center; width: 100%;
+    }
+
+    #result{
+        width: 50%;
+        margin-top: 20px;
+        background-color: rgb(198, 215, 230);
+        
+    }
+    
+    input, button{
+        outline: none; border: none;
+        background-color: rgb(226, 226, 226);
+        padding: 10px;
+        border-radius: 15px;
+        font-size: large;
+    }
+
+    button{
+        cursor: pointer;
+    }
+
+    .inner{
+        max-height: 300px;
+        overflow: scroll;
+        overflow-x: hidden; 
+        scrollbar-width: thin
+    }
+
+    @media screen and (max-width: 980px){
+        .container{
+            display: flex; flex-direction: column; align-items: center; width: 100%;
+        }
+        #result{
+            width: 90%;
+            margin-top: 20px;
+            background-color: rgb(198, 215, 230);
+        
+        }
+    }
+    
+</style>
+<body>
+
+    <div class="container">
+        <h1>Dad jokes</h1>
+        <form>
+            <input type="text" id="term" placeholder="search">
+            <button id="btn">Search</button>
+        </form>
+    
+        <div id="result">
+            <div id="inner"></div>
+        </div>
+    </div>
+
+    <script>
+        
+        const myFunction = (e) => {
+            e.preventDefault()
+            const btn = document.getElementById('btn')
+            const term = document.getElementById('term').value;
+            const inner = document.getElementById('inner');
+            inner.style.padding = "10px"
+            const more = document.getElementById('more');
+
+            const url = `https://icanhazdadjoke.com/search?term=${term}`
+            
+            fetch(url, {
+                headers:{
+                    Accept: 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => appendData(data.results, term))
+            .catch(err => console.log(`error: ${err}`))
+        }
+
+        function appendData(data, term){
+            inner.innerHTML = ""
+            console.log(data, term)
+            if(data.length == []){
+                inner.innerHTML = `No jokes found with the term "${term}"; try again with something else.`
+            } else if (term === ""){
+                inner.innerHTML = "Please write the term."
+            }else {
+                inner.innerHTML = `I found this jokes with the term "${term}"`
+                for (const y of data){
+                    const add = y.joke;
+                    const p = document.createElement('p')
+                    p.textContent = add;
+                    p.style.backgroundColor = "white"
+                    p.style.padding = "4px"
+                    inner.classList.add('inner')
+                    inner.appendChild(p)
+                }
+            }
+        
+        }
+
+        document.addEventListener('submit', myFunction)
+
+        
+    </script>
+    
+</body>
+</html>
