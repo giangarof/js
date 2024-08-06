@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outside{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .inner{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 30%;
+            margin-top: 2rem;
+        }
+
+        #btn{
+            padding: 1rem;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 0 0 4px;
+            background-color: aquamarine;
+            cursor: pointer;
+            
+        }
+
+        #game{
+            background-color: aliceblue;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        #img-container{
+            text-align: center;
+            width: 100%;
+            
+        }
+
+        #error{
+            color: red;
+        }
+
+        #poke{
+            width: 8rem;
+        }
+
+        @media screen and (max-width:1000px) {
+            .inner{
+                width: 90%;
+            }
+        }
+
+       
+        
+    </style>
+</head>
+<body>
+
+    <div class="outside">
+        <div class="inner">
+
+            <button onclick="start()" id="btn">Play Game</button>
+            <div id="div"></div>
+            <div id="img-container"></div>
+        </div>
+    </div>
+    
+
+    <script src="./pokemon.js"></script>
+    
+</body>
+</html>
