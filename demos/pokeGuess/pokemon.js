@@ -91,6 +91,7 @@ class Pokemon{
             this.start()
         } else if (alt !== this.findPokemon){
             this.score -= 1
+            wrong.innerText = 'Wrong, try again!'
             this.updatescore()
             if(this.score === 0){
 
